@@ -1,0 +1,16 @@
+﻿<Controls:MetroWindow x:Class="HotelManager.View.Main"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:HotelManager.View"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="300" Width="600" Loaded="MetroWindow_Loaded">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+   
+    </Grid>
+</Controls:MetroWindow>
