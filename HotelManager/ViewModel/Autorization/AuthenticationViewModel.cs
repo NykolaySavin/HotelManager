@@ -18,7 +18,6 @@ namespace HotelManager.ViewModel.Autorization
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly DelegateCommand _loginCommand;
-        private readonly DelegateCommand _showViewCommand;
         private string _username;
         private string _status;
 
@@ -27,7 +26,7 @@ namespace HotelManager.ViewModel.Autorization
             _authenticationService = authenticationService;
             _loginCommand = new DelegateCommand(Login, CanLogin);
            
-            _showViewCommand = new DelegateCommand(ShowView, null);
+            
         }
 
         #region Properties
@@ -60,8 +59,6 @@ namespace HotelManager.ViewModel.Autorization
 
         #region Commands
         public DelegateCommand LoginCommand { get { return _loginCommand; } }
-
-        public DelegateCommand ShowViewCommand { get { return _showViewCommand; } }
         #endregion
 
         private void Login(object parameter)
@@ -88,6 +85,14 @@ namespace HotelManager.ViewModel.Autorization
                 Username = string.Empty; //reset
                 passwordBox.Password = string.Empty; //reset
                 Status = string.Empty;
+                if(user.Roles.Contains("Administrators"))
+                {
+                    Pages.SetPage(Pages.AdminControl);
+                }
+                else
+                {
+                    Pages.SetPage(Pages.EmployeeControl);
+                }
             }
             catch (UnauthorizedAccessException)
             {
@@ -112,21 +117,7 @@ namespace HotelManager.ViewModel.Autorization
             get { return Thread.CurrentPrincipal.Identity.IsAuthenticated; }
         }
 
-        private void ShowView(object parameter)
-        {
-            try
-            {
-                if (parameter == null)
-                    Pages.SetPage(Pages.EmployeeControl);
-                else
-                    Pages.SetPage(Pages.AdminControl);
-            }
-            catch (SecurityException)
-            {
-                Status = "You are not authorized!";
-            }
-        }
-
+     
 
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
