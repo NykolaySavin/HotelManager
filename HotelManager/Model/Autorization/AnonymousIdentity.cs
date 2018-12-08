@@ -9,7 +9,7 @@ namespace HotelManager.Model.Autorization
     public class AnonymousIdentity : CustomIdentity
     {
         public AnonymousIdentity()
-            : base(string.Empty, string.Empty, new string[] { })
+            : base(string.Empty, string.Empty, string.Empty)
         { }
     }
 }

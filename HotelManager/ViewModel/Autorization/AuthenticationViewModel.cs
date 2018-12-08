@@ -1,4 +1,5 @@
-﻿using HotelManager.Model.Autorization;
+﻿using HotelManager.Model;
+using HotelManager.Model.Autorization;
 using HotelManager.View;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,7 @@ namespace HotelManager.ViewModel.Autorization
             try
             {
                 //Validate credentials through the authentication service
-                User user = _authenticationService.AuthenticateUser(Username, clearTextPassword);
+                Employee user = _authenticationService.AuthenticateUser(Username, clearTextPassword);
 
                 //Get the current principal object
                 CustomPrincipal customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
@@ -76,7 +77,7 @@ namespace HotelManager.ViewModel.Autorization
                     throw new ArgumentException("The application's default thread principal must be set to a CustomPrincipal object on startup.");
 
                 //Authenticate the user
-                customPrincipal.Identity = new CustomIdentity(user.Username, user.Email, user.Roles);
+                customPrincipal.Identity = new CustomIdentity(user.Username, user.Email, user.Role);
 
                 //Update UI
                 NotifyPropertyChanged("AuthenticatedUser");
@@ -85,7 +86,7 @@ namespace HotelManager.ViewModel.Autorization
                 Username = string.Empty; //reset
                 passwordBox.Password = string.Empty; //reset
                 Status = string.Empty;
-                if(user.Roles.Contains("Administrators"))
+                if(user.Role=="Administrators")
                 {
                     Pages.SetPage(Pages.AdminControl);
                 }

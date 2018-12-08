@@ -25,7 +25,7 @@ namespace HotelManager.Model.Autorization
 
         public bool IsInRole(string role)
         {
-            return _identity.Roles.Contains(role);
+            return _identity.Role==role;
         }
         #endregion
     }
