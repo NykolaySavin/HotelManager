@@ -9,7 +9,7 @@ namespace HotelManager.ViewModel
 {
     public class AdminViewModel : EmployeeViewModel
     {
-        public AdminViewModel(HotelContext orderContext):base(orderContext)
+        public AdminViewModel(IDataContext orderContext):base(orderContext)
         {
 
         }

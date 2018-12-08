@@ -10,14 +10,17 @@ namespace HotelManager.Model.OrderDirectory
 {
     public class Order
     {
-        [Key, ForeignKey("Client")]
+        [Key]
         [Column(Order = 0)]
+        public int Id { get; set; }
+        [Key, ForeignKey("Client")]
+        [Column(Order = 1)]
         public int ClientId { get; set; }
 
         [Key, ForeignKey("Room")]
-        [Column(Order = 1)]
-        public int RoomId { get; set; }
         [Column(Order =2)]
+        public int RoomId { get; set; }
+        [Column(Order =3)]
         [Key, ForeignKey("ServiceType")]
         public int ServiceTypeId { get; set; }
         public DateTime StartDate { get; set; }

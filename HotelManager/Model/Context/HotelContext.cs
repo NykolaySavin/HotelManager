@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.Context
 {
-    public class HotelContext : DbContext
+    public class HotelContext : DbContext, IDataContext
     {
 
         public HotelContext() : base("DbConnection")

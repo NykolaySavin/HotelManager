@@ -10,10 +10,10 @@ namespace HotelManager.ViewModel
 {
     public class EmployeeViewModel : IViewModel
     {
-        public HotelContext OrderContext { get;  }
-        public EmployeeViewModel(HotelContext context)
+        public IDataContext DataContext { get;  }
+        public EmployeeViewModel(IDataContext context)
         {
-            OrderContext = context;
+            DataContext = context;
         }
     }
 }

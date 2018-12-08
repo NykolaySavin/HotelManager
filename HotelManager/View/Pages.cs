@@ -8,22 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Unity;
 
 namespace HotelManager.View
 {
     public class Pages
     {
+        private static IUnityContainer container;
+        static Pages()
+        {
+            container = new UnityContainer();
+            container.RegisterType<IDataContext, HotelContext>();
+        }
         private static HotelContext orderContext;
         private static AdminControl adminControl;
         public static AdminControl AdminControl
         {
+            
             get
             {
-                if (orderContext == null)
-                {
-                    orderContext = new HotelContext();
-                }
-                AdminViewModel adminViewModel = new AdminViewModel(orderContext);
+                AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
                 adminControl = new AdminControl(adminViewModel);
                 return adminControl;
             }
@@ -48,7 +52,7 @@ namespace HotelManager.View
                 {
                     orderContext = new HotelContext();
                 }
-                EmployeeViewModel employeeViewModel = new EmployeeViewModel(orderContext);
+                EmployeeViewModel employeeViewModel = container.Resolve<EmployeeViewModel>();
                 employeeControl = new EmployeeControl(employeeViewModel);
                 return employeeControl;
             }
