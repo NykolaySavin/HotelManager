@@ -98,21 +98,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201812081653277_SampleMigrations.cs" />
-    <Compile Include="Migrations\201812081653277_SampleMigrations.Designer.cs">
-      <DependentUpon>201812081653277_SampleMigrations.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Context\HotelContext.cs" />
-    <Compile Include="Model\Context\IDataContext.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\InternalUserData.cs" />
     <Compile Include="Model\OrderDirectory\Client.cs" />
+    <Compile Include="Model\OrderDirectory\Furniture.cs" />
     <Compile Include="Model\OrderDirectory\Order.cs" />
     <Compile Include="Model\OrderDirectory\Room.cs" />
     <Compile Include="Model\OrderDirectory\Service.cs" />
     <Compile Include="Model\OrderDirectory\ServiceType.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Services\IService.cs" />
+    <Compile Include="Model\Services\RoomService.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\Autorization\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
@@ -177,9 +175,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201812081653277_SampleMigrations.resx">
-      <DependentUpon>201812081653277_SampleMigrations.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

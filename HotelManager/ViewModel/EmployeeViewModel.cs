@@ -1,4 +1,5 @@
 ﻿using HotelManager.Model.Context;
+using HotelManager.Model.Services;
 using HotelManager.ViewModel.Autorization;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace HotelManager.ViewModel
 {
     public class EmployeeViewModel : IViewModel
     {
-        public IDataContext DataContext { get;  }
-        public EmployeeViewModel(IDataContext context)
+        public IRoomService RoomService { get;  }
+        public EmployeeViewModel(IRoomService roomService)
         {
-            DataContext = context;
+            RoomService = roomService;
         }
     }
 }

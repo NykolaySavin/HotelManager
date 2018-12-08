@@ -1,4 +1,5 @@
 ﻿using HotelManager.Model.Context;
+using HotelManager.Model.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace HotelManager.ViewModel
 {
     public class AdminViewModel : EmployeeViewModel
     {
-        public AdminViewModel(IDataContext orderContext):base(orderContext)
+        public AdminViewModel(IRoomService roomService):base(roomService)
         {
 
         }

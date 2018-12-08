@@ -10,5 +10,17 @@ namespace HotelManager.Model.OrderDirectory
     {
         public int Id { get; set; }
         public int Number { get; set; }
+        public List<Furniture> Furniture { get; set; }
+        public RoomState State { get; set; }
+        public Room()
+        {
+            Furniture = new List<Furniture>();
+        }
+    }
+    public enum RoomState
+    {
+        Free,
+        Preparing,
+        Occupied
     }
 }

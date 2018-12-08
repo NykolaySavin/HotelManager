@@ -1,5 +1,6 @@
 ﻿using HotelManager.Model.Autorization;
 using HotelManager.Model.Context;
+using HotelManager.Model.Services;
 using HotelManager.ViewModel;
 using HotelManager.ViewModel.Autorization;
 using System;
@@ -18,7 +19,7 @@ namespace HotelManager.View
         static Pages()
         {
             container = new UnityContainer();
-            container.RegisterType<IDataContext, HotelContext>();
+            container.RegisterType<IRoomService, RoomService>();
         }
         private static HotelContext orderContext;
         private static AdminControl adminControl;
@@ -47,11 +48,6 @@ namespace HotelManager.View
         {
             get
             {
-
-                if (orderContext == null)
-                {
-                    orderContext = new HotelContext();
-                }
                 EmployeeViewModel employeeViewModel = container.Resolve<EmployeeViewModel>();
                 employeeControl = new EmployeeControl(employeeViewModel);
                 return employeeControl;
