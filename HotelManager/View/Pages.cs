@@ -1,4 +1,6 @@
 ﻿using HotelManager.Model.Autorization;
+using HotelManager.Model.Context;
+using HotelManager.ViewModel;
 using HotelManager.ViewModel.Autorization;
 using System;
 using System.Collections.Generic;
@@ -11,12 +13,18 @@ namespace HotelManager.View
 {
     public class Pages
     {
+        private static HotelContext orderContext;
         private static AdminControl adminControl;
         public static AdminControl AdminControl
         {
             get
             {
-                adminControl = new AdminControl();
+                if (orderContext == null)
+                {
+                    orderContext = new HotelContext();
+                }
+                AdminViewModel adminViewModel = new AdminViewModel(orderContext);
+                adminControl = new AdminControl(adminViewModel);
                 return adminControl;
             }
         }
@@ -36,7 +44,12 @@ namespace HotelManager.View
             get
             {
 
-                employeeControl = new EmployeeControl();
+                if (orderContext == null)
+                {
+                    orderContext = new HotelContext();
+                }
+                EmployeeViewModel employeeViewModel = new EmployeeViewModel(orderContext);
+                employeeControl = new EmployeeControl(employeeViewModel);
                 return employeeControl;
             }
         }

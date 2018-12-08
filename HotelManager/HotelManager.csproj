@@ -70,16 +70,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\201812081503282_SampleMigrations.cs" />
-    <Compile Include="Migrations\201812081503282_SampleMigrations.Designer.cs">
-      <DependentUpon>201812081503282_SampleMigrations.cs</DependentUpon>
+    <Compile Include="Migrations\201812081630082_SampleMigrations.cs" />
+    <Compile Include="Migrations\201812081630082_SampleMigrations.Designer.cs">
+      <DependentUpon>201812081630082_SampleMigrations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Context\UserDataContext.cs" />
+    <Compile Include="Model\Context\HotelContext.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\InternalUserData.cs" />
+    <Compile Include="Model\OrderDirectory\Client.cs" />
+    <Compile Include="Model\OrderDirectory\Order.cs" />
+    <Compile Include="Model\OrderDirectory\Room.cs" />
+    <Compile Include="Model\OrderDirectory\Service.cs" />
+    <Compile Include="Model\OrderDirectory\ServiceType.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\Autorization\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="View\AdminControl.xaml.cs">
       <DependentUpon>AdminControl.xaml</DependentUpon>
     </Compile>
@@ -140,8 +148,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201812081503282_SampleMigrations.resx">
-      <DependentUpon>201812081503282_SampleMigrations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812081630082_SampleMigrations.resx">
+      <DependentUpon>201812081630082_SampleMigrations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

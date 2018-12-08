@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model
 {
-    public class Employee
+    public class Employee : Person
     {
-        public Employee(string username, string email, string role)
+        public Employee( string name,string surname, string phone,string username, string email, string role) : base(name, surname, email, phone)
         {
             Username = username;
             Email = email;
@@ -26,17 +26,10 @@ namespace HotelManager.Model
             get;
             set;
         }
-        public string Email
-        {
-            get;
-            set;
-        }
-
         public string Role
         {
             get;
             set;
         }
-        public InternalUserData User { get; set; }
     }
 }

@@ -23,8 +23,8 @@ namespace HotelManager.Model.Autorization
         private static List<InternalUserData> _users {
             get
             {
-                using (UserDataContext context = new UserDataContext())
-                {   
+                using (HotelContext context = new HotelContext())
+                {
                     return context.Users.ToList();
                 }
                    
@@ -37,7 +37,7 @@ namespace HotelManager.Model.Autorization
             if (userData == null)
                 throw new UnauthorizedAccessException("Access denied. Please provide some valid credentials.");
             Employee e;
-            using (UserDataContext context = new UserDataContext())
+            using (HotelContext context = new HotelContext())
                 {
 
                 List<Employee> employees = context.Employees.ToList();

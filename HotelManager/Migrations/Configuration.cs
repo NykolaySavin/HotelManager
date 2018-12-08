@@ -5,7 +5,7 @@ namespace HotelManager.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<HotelManager.Model.Context.UserDataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<HotelManager.Model.Context.HotelContext>
     {
         public Configuration()
         {
@@ -13,7 +13,7 @@ namespace HotelManager.Migrations
             ContextKey = "HotelManager.Model.Context.UserDataContext";
         }
 
-        protected override void Seed(HotelManager.Model.Context.UserDataContext context)
+        protected override void Seed(HotelManager.Model.Context.HotelContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -24,9 +24,10 @@ namespace HotelManager.View
     [PrincipalPermission(SecurityAction.Demand)]
     public partial class EmployeeControl : UserControl, IView
     {
-        public EmployeeControl()
+        public EmployeeControl(IViewModel viewModel)
         {
             InitializeComponent();
+            ViewModel = viewModel;
         }
         public IViewModel ViewModel
         {

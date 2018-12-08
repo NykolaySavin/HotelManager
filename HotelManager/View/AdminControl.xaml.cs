@@ -24,9 +24,10 @@ namespace HotelManager.View
     [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
     public partial class AdminControl : UserControl, IView
     {
-        public AdminControl()
+        public AdminControl(IViewModel viewModel)
         {
             InitializeComponent();
+            ViewModel = viewModel;
         }
         public IViewModel ViewModel
         {
