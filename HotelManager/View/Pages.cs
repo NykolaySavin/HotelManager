@@ -32,8 +32,8 @@ namespace HotelManager.View
                // AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
 
                 adminControl = container.Resolve<AdminControl>();
-                main.Width = 800;
-                main.Height = 450;
+                main.Width = 1000;
+                main.Height = 600;
                 return adminControl;
             }
         }
@@ -59,9 +59,33 @@ namespace HotelManager.View
                 return employeeControl;
             }
         }
+        private static RoomEditorControl roomEditorControl;
+        public static RoomEditorControl RoomEditorControl
+        {
+            get
+            {
+               if(roomEditorControl==null)
+                    roomEditorControl = new RoomEditorControl();
+                return roomEditorControl;
+            }
+        }
+        private static RoomControl roomControl;
+        public static RoomControl RoomControl
+        {
+            get
+            {
+                if (roomControl == null)
+                    roomControl = new RoomControl();
+                return roomControl;
+            }
+        }
         public static void SetPage(UserControl control)
         {
             main.SetPage(control);
+        }
+        public static void SetRoomPage(UserControl control)
+        {
+            adminControl.roomPage.Content=control;
         }
     }
 }

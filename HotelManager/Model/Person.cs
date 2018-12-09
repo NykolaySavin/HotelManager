@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model
 {
-    public  class Person
+    public  class Person : Base<Person>
     {
         
         public string Email

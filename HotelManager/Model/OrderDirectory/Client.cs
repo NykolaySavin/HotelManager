@@ -8,11 +8,6 @@ namespace HotelManager.Model.OrderDirectory
 {
     public class Client : Person
     {
-        public int Id
-        {
-            get;
-            set;
-        }
         public Client(string name, string surname, string phone ,string email) : base(name, surname, email, phone)
         {
 

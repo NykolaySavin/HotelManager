@@ -8,21 +8,18 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.OrderDirectory
 {
-    public class Order
+    public class Order : Base<Order>
     {
-        [Key]
-        [Column(Order = 0)]
-        public int Id { get; set; }
         [Key, ForeignKey("Client")]
         [Column(Order = 1)]
-        public int ClientId { get; set; }
+        public Guid ClientId { get; set; }
 
         [Key, ForeignKey("Room")]
         [Column(Order =2)]
-        public int RoomId { get; set; }
+        public Guid RoomId { get; set; }
         [Column(Order =3)]
         [Key, ForeignKey("ServiceType")]
-        public int ServiceTypeId { get; set; }
+        public Guid ServiceTypeId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime FinishDate { get; set; }
         public double Sum { get; set; }

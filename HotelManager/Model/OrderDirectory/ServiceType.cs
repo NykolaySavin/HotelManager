@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.OrderDirectory
 {
-    public class ServiceType
+    public class ServiceType : Base<ServiceType>
     {
-        [Key]
-        public int Id { get; set; }
         public string Type { get; set; }
         public List<Service> Services { get; set; }
         public ServiceType()

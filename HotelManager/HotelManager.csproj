@@ -100,6 +100,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Base.cs" />
     <Compile Include="Model\Context\HotelContext.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\InternalUserData.cs" />
@@ -134,6 +135,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\RoomControl.xaml.cs">
+      <DependentUpon>RoomControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RoomEditorControl.xaml.cs">
+      <DependentUpon>RoomEditorControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AdminControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +154,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Main.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoomControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RoomEditorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

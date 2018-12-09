@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model
 {
-    public class InternalUserData
+    public class InternalUserData : Base<InternalUserData>
     {
         public InternalUserData(string username, string email, string hashedPassword, string role)
         {
@@ -21,8 +21,6 @@ namespace HotelManager.Model
         {
 
         }
-        [Key]
-        [ForeignKey("Employee")]
         public string Username
         {
             get;

@@ -20,7 +20,7 @@ namespace HotelManager.Model
         {
 
         }
-        [Key]
+
         public string Username
         {
             get;

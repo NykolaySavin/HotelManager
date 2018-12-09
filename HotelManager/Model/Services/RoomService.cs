@@ -1,6 +1,8 @@
-﻿using HotelManager.Model.OrderDirectory;
+﻿using HotelManager.Model.Context;
+using HotelManager.Model.OrderDirectory;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,11 @@ namespace HotelManager.Model.Services
     {
         public void Add(Room item)
         {
-          
+            using (HotelContext context = new HotelContext())
+            {
+                context.Rooms.Add(item);
+                context.SaveChanges();
+            }
         }
 
         public void Delete(Room item)
@@ -19,14 +25,26 @@ namespace HotelManager.Model.Services
             
         }
 
-        public void Edit(Room item, int id)
+        public void Edit(Room item)
         {
-           
+            using (HotelContext context = new HotelContext())
+            {
+                Room old = context.Rooms.SingleOrDefault(x=>x.Id==item.Id);
+                old.Number = item.Number;
+                old.State = item.State;
+                old.Furniture.AddRange(item.Furniture);
+                context.SaveChanges();
+            }
         }
 
         public List<Room> GetItems()
         {
-            return null;
+            List<Room> rooms = new List<Room>();
+            using (HotelContext context =new HotelContext())
+            {
+                rooms.AddRange(context.Rooms.ToList());               
+            }
+            return rooms;
         }
 
         public void Save()
