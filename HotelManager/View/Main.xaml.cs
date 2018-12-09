@@ -17,19 +17,12 @@ using System.Windows.Shapes;
 
 namespace HotelManager.View
 {
-    public interface IView
-    {
-        IViewModel ViewModel
-        {
-            get;
-            set;
-        }
-    }
+
     /// <summary>
     /// Логика взаимодействия для Main.xaml
     /// </summary>
 
-    public partial class Main : MetroWindow, IView 
+    public partial class Main : MetroWindow
     {
         public Main()
         {
@@ -42,7 +35,6 @@ namespace HotelManager.View
         }
         public IViewModel ViewModel
         {
-            get { return DataContext as IViewModel; }
             set { DataContext = value; }
         }
 

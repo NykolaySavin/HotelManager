@@ -16,5 +16,6 @@ namespace HotelManager.ViewModel
         {
             RoomService = roomService;
         }
+        public string Text { get { return "DFSfd"; }  }
     }
 }

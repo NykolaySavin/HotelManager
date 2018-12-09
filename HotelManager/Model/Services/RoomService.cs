@@ -26,7 +26,12 @@ namespace HotelManager.Model.Services
 
         public List<Room> GetItems()
         {
+            return null;
+        }
 
+        public void Save()
+        {
+            
         }
     }
     public interface IRoomService : IService<Room>

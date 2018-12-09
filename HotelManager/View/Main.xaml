@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:HotelManager.View"
+                      
         mc:Ignorable="d"
-        Title="LoginWindow" Height="300" Width="600" Loaded="MetroWindow_Loaded">
-    <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
-    </Window.Resources>
+        Title="LoginWindow" Height="300" Width="400" Loaded="MetroWindow_Loaded">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
     <Grid>
    
     </Grid>

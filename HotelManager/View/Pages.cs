@@ -16,20 +16,24 @@ namespace HotelManager.View
     public class Pages
     {
         private static IUnityContainer container;
+        private static Main main; 
         static Pages()
         {
             container = new UnityContainer();
+            main = App.Current.MainWindow as Main;
             container.RegisterType<IRoomService, RoomService>();
         }
-        private static HotelContext orderContext;
         private static AdminControl adminControl;
         public static AdminControl AdminControl
         {
             
             get
             {
-                AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
-                adminControl = new AdminControl(adminViewModel);
+               // AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
+
+                adminControl = container.Resolve<AdminControl>();
+                main.Width = 800;
+                main.Height = 450;
                 return adminControl;
             }
         }
@@ -48,14 +52,16 @@ namespace HotelManager.View
         {
             get
             {
-                EmployeeViewModel employeeViewModel = container.Resolve<EmployeeViewModel>();
-                employeeControl = new EmployeeControl(employeeViewModel);
+                //EmployeeViewModel employeeViewModel = container.Resolve<EmployeeViewModel>();
+                employeeControl = container.Resolve<EmployeeControl>();
+                main.Width = 800;
+                main.Height = 450;
                 return employeeControl;
             }
         }
         public static void SetPage(UserControl control)
         {
-            (App.Current.MainWindow as Main).SetPage(control);
+            main.SetPage(control);
         }
     }
 }

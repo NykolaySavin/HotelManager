@@ -4,40 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelManager.View"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="300" Width="400">
+
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                <ResourceDictionary>
+                    <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+                </ResourceDictionary>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+          
     </UserControl.Resources>
+   
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="{Binding AuthenticatedUser}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize="14" HorizontalAlignment="Right" TextWrapping="Wrap" FontWeight="Bold"
+        <Controls:ProgressRing IsActive="True" Visibility="{Binding IsActive, Converter={StaticResource booleanToVisibilityConverter}}"></Controls:ProgressRing>
+        <Grid x:Name="grid" Visibility="{Binding IsInActive, Converter={StaticResource booleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.33*"/>
+            </Grid.RowDefinitions>
+            <TextBlock  Text="{Binding AuthenticatedUser}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize="20" HorizontalAlignment="Right" TextWrapping="Wrap" FontWeight="Bold"
                Margin="2,2,2,2"/>
-        <TextBlock Text="Username:" Grid.Row="1" Grid.Column="0" />
-        <TextBlock Text="Password:" Grid.Row="2" Grid.Column="0" />
-        <TextBox Text="{Binding Username}" Grid.Row="1" Grid.Column="1" />
-        <PasswordBox x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-            <Button Content="Log in" Command="{Binding LoginCommand, Mode=OneTime}"
+            <TextBlock Margin="20,0,0,0"  FontSize="20" VerticalAlignment="Center" Text="Username:" Grid.Row="1" Grid.Column="0" />
+            <TextBlock Margin="20,0,0,0" FontSize="20" VerticalAlignment="Center" Text="Password:" Grid.Row="2" Grid.Column="0" />
+            <TextBox Style="{x:Null}" Margin="20,0,0,0"  HorizontalAlignment="Left" Width="200" FontSize="20" Height="30" Text="{Binding Username}" Grid.Row="1" Grid.Column="1" />
+            <PasswordBox Style="{x:Null}" Margin="20,0,0,0" HorizontalAlignment="Left" Width="200" FontSize="20" Height="30" x:Name="passwordBox" Grid.Row="2" Grid.Column="1" />
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <Button Click="btnLog_Click" x:Name="btnLog"  Margin="20,0,0,0"  Height="30" Content="Log in" Command="{Binding LoginCommand, Mode=OneTime}"
             CommandParameter="{Binding ElementName=passwordBox}"
-            HorizontalAlignment="Center"/>
-            <Button Content="Log out" Command="{Binding LogoutCommand, Mode=OneTime}"
-            Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}"
-            HorizontalAlignment="Center" Margin="2,0,0,0"/>
-        </StackPanel>
-        <TextBlock Text="{Binding Status}" Grid.Row="4" Grid.Column="1"
+            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100"/>
+
+            </StackPanel>
+            <TextBlock Text="{Binding Status}" Grid.Row="4" Grid.Column="1"
                HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" TextWrapping="Wrap" />
+        </Grid>
+       
     </Grid>
+
 </UserControl>

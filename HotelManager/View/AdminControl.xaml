@@ -5,8 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HotelManager.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" MinHeight="450" MinWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="This window is only accessible for administrators..."/>
+        
+        <TabControl>
+            <TabItem Header="Room Management"></TabItem>
+            <TabItem Header="Client Management">
+                <local:EmployeeControl></local:EmployeeControl>
+            </TabItem>
+            <TabItem Header="Employee Management"></TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

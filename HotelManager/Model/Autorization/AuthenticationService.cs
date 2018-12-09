@@ -35,7 +35,12 @@ namespace HotelManager.Model.Autorization
             InternalUserData userData = _users.FirstOrDefault(u => u.Username.Equals(username)
                 && u.HashedPassword.Equals(CalculateHash(clearTextPassword, u.Username)));
             if (userData == null)
-                throw new UnauthorizedAccessException("Access denied. Please provide some valid credentials.");
+            {
+                return null;
+                    
+            }
+                
+               
             Employee e;
             using (HotelContext context = new HotelContext())
                 {

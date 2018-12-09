@@ -1,4 +1,5 @@
-﻿using HotelManager.ViewModel.Autorization;
+﻿using HotelManager.ViewModel;
+using HotelManager.ViewModel.Autorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace HotelManager.View
 {
@@ -22,19 +24,15 @@ namespace HotelManager.View
     /// </summary>
     /// 
     [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
-    public partial class AdminControl : UserControl, IView
+    public partial class AdminControl : UserControl
     {
-        public AdminControl(IViewModel viewModel)
+        public AdminControl()
         {
             InitializeComponent();
-            ViewModel = viewModel;
         }
-        public IViewModel ViewModel
+        [Dependency]
+        public AdminViewModel ViewModel
         {
-            get
-            {
-                return DataContext as IViewModel;
-            }
             set
             {
                 DataContext = value;

@@ -1,7 +1,9 @@
-﻿using HotelManager.ViewModel.Autorization;
+﻿using HotelManager.ViewModel;
+using HotelManager.ViewModel.Autorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Dispatcher;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,17 +21,23 @@ namespace HotelManager.View
     /// <summary>
     /// Логика взаимодействия для LoginControl.xaml
     /// </summary>
-    public partial class LoginControl : UserControl, IView
+    public partial class LoginControl : UserControl
     {
         public LoginControl(AuthenticationViewModel viewModel)
         {
             InitializeComponent();
             ViewModel = viewModel;
         }
-        public IViewModel ViewModel
+        public AuthenticationViewModel ViewModel
         {
-            get { return DataContext as IViewModel; }
+            get { return DataContext as AuthenticationViewModel; }
             set { DataContext = value; }
+        }
+
+        private void btnLog_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.IsActive = true;
+            this.InvalidateVisual();
         }
     }
 }

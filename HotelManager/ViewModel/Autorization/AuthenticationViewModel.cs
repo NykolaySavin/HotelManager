@@ -9,6 +9,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace HotelManager.ViewModel.Autorization
@@ -18,15 +19,15 @@ namespace HotelManager.ViewModel.Autorization
     public class AuthenticationViewModel : IViewModel, INotifyPropertyChanged
     {
         private readonly IAuthenticationService _authenticationService;
-        private readonly DelegateCommand _loginCommand;
+        private readonly AsyncCommand<object> _loginCommand;
         private string _username;
         private string _status;
-
+        private bool isActive;
         public AuthenticationViewModel(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
-            _loginCommand = new DelegateCommand(Login, CanLogin);
-           
+            _loginCommand = new AsyncCommand<object>(Login, CanLogin);
+            isActive = false;
             
         }
 
@@ -36,7 +37,16 @@ namespace HotelManager.ViewModel.Autorization
             get { return _username; }
             set { _username = value; NotifyPropertyChanged("Username"); }
         }
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; NotifyPropertyChanged("IsActive"); NotifyPropertyChanged("IsInActive"); }
+        }
+        public bool IsInActive
+        {
+            get { return !isActive; }
 
+        }
         public string AuthenticatedUser
         {
             get
@@ -56,21 +66,24 @@ namespace HotelManager.ViewModel.Autorization
             get { return _status; }
             set { _status = value; NotifyPropertyChanged("Status"); }
         }
+
         #endregion
 
         #region Commands
-        public DelegateCommand LoginCommand { get { return _loginCommand; } }
+        public AsyncCommand<object> LoginCommand { get { return _loginCommand; } }
         #endregion
 
-        private void Login(object parameter)
+        private async Task Login(object parameter)
         {
+
             PasswordBox passwordBox = parameter as PasswordBox;
             string clearTextPassword = passwordBox.Password;
             try
             {
                 //Validate credentials through the authentication service
-                Employee user = _authenticationService.AuthenticateUser(Username, clearTextPassword);
-
+                Employee user =await Task.Factory.StartNew(()=> _authenticationService.AuthenticateUser(Username, clearTextPassword));
+                if(user==null)
+                    throw new UnauthorizedAccessException("Access denied. Please provide some valid credentials.");
                 //Get the current principal object
                 CustomPrincipal customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
                 if (customPrincipal == null)
@@ -102,6 +115,10 @@ namespace HotelManager.ViewModel.Autorization
             catch (Exception ex)
             {
                 Status = string.Format("ERROR: {0}", ex.Message);
+            }
+            finally
+            {
+                IsActive = false;
             }
         }
 
