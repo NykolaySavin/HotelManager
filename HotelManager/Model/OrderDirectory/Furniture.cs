@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.OrderDirectory
 {
-    public class Furniture:Base<Furniture>
+    public class Furniture:Base
     {
         public string Name { get; set; }
         public string Price { get; set; }

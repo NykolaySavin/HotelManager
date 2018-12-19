@@ -113,7 +113,7 @@
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Services\IService.cs" />
     <Compile Include="Model\Services\RoomService.cs" />
-    <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\RoomViewModel.cs" />
     <Compile Include="ViewModel\AsyncCommand.cs" />
     <Compile Include="ViewModel\Autorization\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\DelegateCommand.cs" />
@@ -138,8 +138,8 @@
     <Compile Include="View\RoomControl.xaml.cs">
       <DependentUpon>RoomControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RoomEditorControl.xaml.cs">
-      <DependentUpon>RoomEditorControl.xaml</DependentUpon>
+    <Compile Include="View\RoomEditor.xaml.cs">
+      <DependentUpon>RoomEditor.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AdminControl.xaml">
       <SubType>Designer</SubType>
@@ -161,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RoomEditorControl.xaml">
+    <Page Include="View\RoomEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

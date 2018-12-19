@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.OrderDirectory
 {
-    public class Order : Base<Order>
+    public class Order : Base
     {
         [Key, ForeignKey("Client")]
         [Column(Order = 1)]

@@ -16,7 +16,12 @@ namespace HotelManager.Model.Context
         public DbSet<Order> Orders { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Furniture> Furnitures { get; set; }
         public DbSet<InternalUserData> Users { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+
+        }
     }
 }

@@ -3,26 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:local="clr-namespace:HotelManager.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-            <ColumnDefinition  Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.33*"></ColumnDefinition>
+            <ColumnDefinition  Width="0.33*"></ColumnDefinition>
+            <ColumnDefinition Width="0.33*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
             <RowDefinition Height="0.8*"></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid IsReadOnly="True" Width="200" Height="300" SelectedItem="{Binding Room,Mode=TwoWay}" SelectionMode="Single" ItemsSource="{Binding Rooms}" AutoGenerateColumns="False">
+        <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">ALL ROOMS</TextBlock>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">FURNITURE IN THIS ROOM</TextBlock>
+        <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">ALL FURNITURE</TextBlock>
+        <DataGrid IsReadOnly="True" Grid.Row="1" Width="200" Height="300" SelectedItem="{Binding Room,Mode=TwoWay}" SelectionMode="Single" ItemsSource="{Binding Rooms}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Number" Binding="{Binding Number}"></DataGridTextColumn>
                 <DataGridTextColumn Header="State" Binding="{Binding State}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid  IsReadOnly="True" Grid.Column="1" Width="200" Height="300" ItemsSource="{Binding Room.Furniture}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1"  IsReadOnly="True" Grid.Column="1" Width="200" Height="300" ItemsSource="{Binding Room.Furniture}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Row="1"  IsReadOnly="True" Grid.Column="2" Width="200" Height="300" ItemsSource="{Binding Furniture}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
@@ -34,12 +44,11 @@
                 <ColumnDefinition  Width="0.33*"></ColumnDefinition>
                 <ColumnDefinition  Width="0.33*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Click="btnAdd_Click"  x:Name="btnAdd"  Margin="20,0,0,0"  Height="30" Content="Add" 
-            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100"  Command="{Binding ClearCommand, Mode=OneTime}"/>
-            <Button Click="btnAdd_Click" Grid.Column="1" x:Name="btnEdit"  Margin="20,0,0,0"  Height="30" Content="Edit" 
-            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" />
-            <Button Grid.Column="2"  x:Name="btnDelete"  Margin="20,0,0,0"  Height="30" Content="Delete" 
-            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100"  Command="{Binding DeleteCommand, Mode=OneTime}"/>
+
+            
+
         </Grid>
+        <Button  Grid.Row="2"  x:Name="btnDelete"  Margin="20,0,0,0"  Height="30" Content="Delete" 
+            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100"  Command="{Binding DeleteCommand}"/>
     </Grid>
 </UserControl>

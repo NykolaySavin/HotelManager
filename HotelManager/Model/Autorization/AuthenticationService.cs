@@ -25,6 +25,11 @@ namespace HotelManager.Model.Autorization
             {
                 using (HotelContext context = new HotelContext())
                 {
+                    //InternalUserData user = new InternalUserData("admin", "savin171099@gmail.com", CalculateHash("1", "admin"), "Administrators");
+                    //context.Users.Add(user);
+                    //Employee employee = new Employee("Mykola", "Savin", "380961428219", user.Username, user.Email, user.Role);
+                    //context.Employees.Add(employee);
+                    //context.SaveChanges();
                     return context.Users.ToList();
                 }
                    

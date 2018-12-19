@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace HotelManager.View
 {
     /// <summary>
-    /// Логика взаимодействия для RoomEditorControl.xaml
+    /// Логика взаимодействия для RoomEditor.xaml
     /// </summary>
-    public partial class RoomEditorControl : UserControl
+    public partial class RoomEditor : UserControl
     {
-        public RoomEditorControl()
+        public RoomEditor()
         {
             InitializeComponent();
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            Pages.SetRoomPage(Pages.RoomControl);
         }
     }
 }

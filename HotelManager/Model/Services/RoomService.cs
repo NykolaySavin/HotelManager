@@ -3,6 +3,7 @@ using HotelManager.Model.OrderDirectory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,10 +30,14 @@ namespace HotelManager.Model.Services
         {
             using (HotelContext context = new HotelContext())
             {
-                Room old = context.Rooms.SingleOrDefault(x=>x.Id==item.Id);
-                old.Number = item.Number;
-                old.State = item.State;
-                old.Furniture.AddRange(item.Furniture);
+                //Room old = context.Rooms.SingleOrDefault(x=>x.Id==item.Id);
+                //old.Number = item.Number;
+                //old.State = item.State;
+                //foreach (var el in item.Furniture)
+                //{
+                //    old.Furniture.Add(el);
+                //}
+                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
         }
@@ -42,7 +47,10 @@ namespace HotelManager.Model.Services
             List<Room> rooms = new List<Room>();
             using (HotelContext context =new HotelContext())
             {
-                rooms.AddRange(context.Rooms.ToList());               
+                foreach (var item in context.Rooms.Include(i=>i.Furniture))
+                {
+                    rooms.Add(item);
+                }               
             }
             return rooms;
         }

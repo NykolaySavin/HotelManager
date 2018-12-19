@@ -59,26 +59,7 @@ namespace HotelManager.View
                 return employeeControl;
             }
         }
-        private static RoomEditorControl roomEditorControl;
-        public static RoomEditorControl RoomEditorControl
-        {
-            get
-            {
-               if(roomEditorControl==null)
-                    roomEditorControl = new RoomEditorControl();
-                return roomEditorControl;
-            }
-        }
-        private static RoomControl roomControl;
-        public static RoomControl RoomControl
-        {
-            get
-            {
-                if (roomControl == null)
-                    roomControl = new RoomControl();
-                return roomControl;
-            }
-        }
+      
         public static void SetPage(UserControl control)
         {
             main.SetPage(control);

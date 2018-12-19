@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model
 {
-    public class InternalUserData : Base<InternalUserData>
+    public class InternalUserData : Base
     {
         public InternalUserData(string username, string email, string hashedPassword, string role)
         {

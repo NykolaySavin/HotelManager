@@ -31,7 +31,7 @@ namespace HotelManager.View
             InitializeComponent();
         }
         [Dependency]
-        public AdminViewModel ViewModel
+        public RoomViewModel ViewModel
         {
             set
             {
