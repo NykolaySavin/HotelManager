@@ -26,11 +26,11 @@ namespace HotelManager.View
     [PrincipalPermission(SecurityAction.Demand, Role = "Administrators")]
     public partial class AdminControl : UserControl
     {
-        public AdminControl()
+        public AdminControl(AdminViewModel adminViewModel)
         {
             InitializeComponent();
+            ViewModel = adminViewModel;
         }
-        [Dependency]
         public AdminViewModel ViewModel
         {
             set { DataContext = value; }

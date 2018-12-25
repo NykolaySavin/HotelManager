@@ -3,45 +3,25 @@ using HotelManager.Model.OrderDirectory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    public class FurnitureService : IService<Furniture>
+    public class FurnitureService : GenericService<Furniture>
     {
-        public void Add(Furniture item)
+        DbContext _context;
+        
+        public FurnitureService(DbContext context) :base(context)
         {
-            throw new NotImplementedException();
+            this._context = context;
         }
-
-        public void Delete(Furniture item)
+        public override void Create(Furniture item)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(Furniture item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ObservableCollection<Furniture> GetItems()
-        {
-            ObservableCollection<Furniture> furniture = new ObservableCollection<Furniture>();
-            using (HotelContext context = new HotelContext())
-            {
-                foreach (var item in context.Furnitures)
-                {
-                    furniture.Add(item);
-                }
-            }
-            return furniture;
-        }
-
-        public void Save()
-        {
-            throw new NotImplementedException();
+            _context.Entry(item.Room).State = EntityState.Unchanged;
+            base.Create(item);
         }
     }
 }

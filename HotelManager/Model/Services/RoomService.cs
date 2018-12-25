@@ -10,50 +10,21 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    public class RoomService : IService<Room>
+    public class RoomService : GenericService<Room>
     {
-        public void Add(Room item)
+        public RoomService(DbContext context) : base(context)
         {
-            using (HotelContext context = new HotelContext())
-            {
-                context.Rooms.Add(item);
-                context.SaveChanges();
-            }
-        }
 
-        public void Delete(Room item)
+        }
+        public override ObservableCollection<Room> GetObservable()
         {
-            using (HotelContext context = new HotelContext())
+            IEnumerable<Room> rooms =  base.GetWithInclude(x=>x.Furniture);
+            ObservableCollection<Room> collection = new ObservableCollection<Room>();
+            foreach (var item in rooms)
             {
-                context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
-                context.SaveChanges();
+                collection.Add(item);
             }
+            return collection;
         }
-
-        public void Edit(Room item)
-        {
-            using (HotelContext context = new HotelContext())
-            {
-                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
-            }
-        }
-
-        public ObservableCollection<Room> GetItems()
-        {
-            ObservableCollection<Room> rooms = new ObservableCollection<Room>();
-            using (HotelContext context =new HotelContext())
-            {
-                foreach (var item in context.Rooms.Include(i=>i.Furniture))
-                {
-                    rooms.Add(item);
-                }               
-            }
-            return rooms;
-        }
-    }
-    public interface IRoomService : IService<Room>
-    {
-
     }
 }

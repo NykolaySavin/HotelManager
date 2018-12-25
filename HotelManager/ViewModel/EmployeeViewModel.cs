@@ -11,10 +11,9 @@ namespace HotelManager.ViewModel
 {
     public class EmployeeViewModel : IViewModel<EmployeeViewModel>
     {
-        public IRoomService RoomService { get;  }
-        public EmployeeViewModel(IRoomService roomService)
+
+        public EmployeeViewModel()
         {
-            RoomService = roomService;
         }
         public string Text { get { return "DFSfd"; }  }
     }

@@ -15,15 +15,17 @@ namespace HotelManager.ViewModel
 {
     public class RoomViewModel : INotifyPropertyChanged
     {
-        public RoomViewModel(IService<Room> roomService)
+        public RoomViewModel(IService<Room> roomService, FurnitureViewModel furnitureViewModel)
         {
             this.roomService = roomService;
-            Rooms = roomService.GetItems();
-            Room = Rooms.FirstOrDefault();
+            Rooms = roomService.GetObservable();
+            Room = new Room();
+            FurnitureViewModel = furnitureViewModel;
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
             _clearCommand = new DelegateCommand(Clear);
+
         }
         #region fields
         private ObservableCollection<Room> rooms;
@@ -60,7 +62,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                roomService.Add(room);
+                Room r = new Room { Number = room.Number };
+                roomService.Create(r);
                 Rooms.Add(room);
             }
             catch(Exception e)
@@ -76,7 +79,7 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                roomService.Edit(room);
+               roomService.Update(room);
             }
             catch (Exception e)
             {
@@ -87,7 +90,7 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                roomService.Delete(room);
+                roomService.Remove(room);
                 Rooms.Remove(room);
 
             }
@@ -98,7 +101,6 @@ namespace HotelManager.ViewModel
         }
         #endregion
         #region ViewModels
-        [Dependency]
         public FurnitureViewModel FurnitureViewModel
         {
             get; set;

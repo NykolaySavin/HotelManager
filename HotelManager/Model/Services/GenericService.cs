@@ -1,50 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    class GenericService<T> :IService<T> where T :class
+    public class GenericService<T> :IService<T> where T :class
     {
         DbContext _context;
-        DbSet<TEntity> _dbSet;
+        DbSet<T> _dbSet;
 
-        public EFGenericRepository(DbContext context)
+        public GenericService(DbContext context)
         {
             _context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbSet = context.Set<T>();
         }
 
-        public IEnumerable<TEntity> Get()
+        public IEnumerable<T> Get()
         {
             return _dbSet.AsNoTracking().ToList();
         }
-
-        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        public virtual ObservableCollection<T> GetObservable()
+        {
+            List<T> ts= _dbSet.AsNoTracking().ToList();
+            ObservableCollection<T> collection = new ObservableCollection<T>();
+            foreach (var item in ts)
+            {
+                collection.Add(item);
+            }
+            return collection;
+        }
+        public IEnumerable<T> Get(Func<T, bool> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
-        public TEntity FindById(int id)
+        public T FindById(int id)
         {
             return _dbSet.Find(id);
         }
 
-        public void Create(TEntity item)
+        public virtual void Create(T item)
         {
             _dbSet.Add(item);
             _context.SaveChanges();
         }
-        public void Update(TEntity item)
+        public virtual void Update(T item)
         {
             _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
         }
-        public void Remove(TEntity item)
+        public virtual void Remove(T item)
         {
             _dbSet.Remove(item);
             _context.SaveChanges();
+        }
+        public IEnumerable<T> GetWithInclude(params Expression<Func<T, object>>[] includeProperties)
+        {
+            return Include(includeProperties).ToList();
+        }
+
+        public IEnumerable<T> GetWithInclude(Func<T, bool> predicate,
+            params Expression<Func<T, object>>[] includeProperties)
+        {
+            var query = Include(includeProperties);
+            return query.Where(predicate).ToList();
+        }
+
+        private IQueryable<T> Include(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _dbSet.AsNoTracking();
+            return includeProperties
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
         }
     }
 }

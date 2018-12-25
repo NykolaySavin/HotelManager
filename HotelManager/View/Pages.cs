@@ -6,11 +6,13 @@ using HotelManager.ViewModel;
 using HotelManager.ViewModel.Autorization;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Unity;
+using Unity.Injection;
 
 namespace HotelManager.View
 {
@@ -22,10 +24,10 @@ namespace HotelManager.View
         {
             container = new UnityContainer();
             main = App.Current.MainWindow as Main;
-            container.RegisterType<IService<Room>, RoomService>();
-            container.RegisterType<RoomViewModel, RoomViewModel>();
-            container.RegisterType<FurnitureViewModel, FurnitureViewModel>();
-            container.RegisterType<IService<Furniture>, FurnitureService>();
+            //container.RegisterType<IService<Room>, RoomService>();
+            //container.RegisterType<RoomViewModel, RoomViewModel>();
+            //container.RegisterType<FurnitureViewModel, FurnitureViewModel>();
+           // container.RegisterType<IService<Furniture>, FurnitureService>();
         }
         private static AdminControl adminControl;
         public static AdminControl AdminControl
@@ -33,8 +35,17 @@ namespace HotelManager.View
             
             get
             {
-               // AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
+                // AdminViewModel adminViewModel = container.Resolve<AdminViewModel>();
+                //container.RegisterType<DbContext, HotelContext>();
+                HotelContext context = new HotelContext();
+                container.RegisterType<IService<Furniture>, FurnitureService>(new InjectionConstructor(context));
+                container.RegisterType<IService<Room>, RoomService>(new InjectionConstructor(new object[] { context,container.Resolve<FurnitureViewModel>() } ));
+               
 
+
+                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>(),container.Resolve<FurnitureViewModel>() }));
+                //AdminViewModel viewmodel = container.Resolve<AdminViewModel>();
+                container.RegisterType<AdminControl>();
                 adminControl = container.Resolve<AdminControl>();
                 main.Width = 1000;
                 main.Height = 600;

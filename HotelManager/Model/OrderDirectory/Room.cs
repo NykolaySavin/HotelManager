@@ -16,6 +16,10 @@ namespace HotelManager.Model.OrderDirectory
         {
             Furniture = new List<Furniture>();
         }
+        public override string ToString()
+        {
+            return Number;
+        }
     }
 
     public enum RoomState
