@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +17,14 @@ namespace HotelManager.Model.OrderDirectory
             Furniture = new List<Furniture>();
         }
     }
+
     public enum RoomState
     {
+        [Description("Free")]
         Free,
+        [Description("Preparing")]
         Preparing,
+        [Description("Occupied")]
         Occupied
     }
 }

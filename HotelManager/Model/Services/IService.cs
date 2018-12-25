@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    public interface IService<T>
+    public interface IService<T> where T:class
     {
         void Add(T item);
         void Edit(T item );
         void Delete(T item);
-        List<T> GetItems();
-        void Save();
+        ObservableCollection<T> Get();
     }
 }

@@ -26,13 +26,6 @@ namespace HotelManager.View
         {
             InitializeComponent();
         }
-        [Dependency]
-        public RoomViewModel ViewModel
-        {
-            set
-            {
-                DataContext = value;
-            }
-        }
+
     }
 }

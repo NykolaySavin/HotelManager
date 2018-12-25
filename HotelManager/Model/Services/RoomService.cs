@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    public class RoomService : IRoomService
+    public class RoomService : IService<Room>
     {
         public void Add(Room item)
         {
@@ -23,28 +23,25 @@ namespace HotelManager.Model.Services
 
         public void Delete(Room item)
         {
-            
+            using (HotelContext context = new HotelContext())
+            {
+                context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                context.SaveChanges();
+            }
         }
 
         public void Edit(Room item)
         {
             using (HotelContext context = new HotelContext())
             {
-                //Room old = context.Rooms.SingleOrDefault(x=>x.Id==item.Id);
-                //old.Number = item.Number;
-                //old.State = item.State;
-                //foreach (var el in item.Furniture)
-                //{
-                //    old.Furniture.Add(el);
-                //}
                 context.Entry(item).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
         }
 
-        public List<Room> GetItems()
+        public ObservableCollection<Room> GetItems()
         {
-            List<Room> rooms = new List<Room>();
+            ObservableCollection<Room> rooms = new ObservableCollection<Room>();
             using (HotelContext context =new HotelContext())
             {
                 foreach (var item in context.Rooms.Include(i=>i.Furniture))
@@ -53,11 +50,6 @@ namespace HotelManager.Model.Services
                 }               
             }
             return rooms;
-        }
-
-        public void Save()
-        {
-            
         }
     }
     public interface IRoomService : IService<Room>

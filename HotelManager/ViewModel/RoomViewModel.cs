@@ -8,30 +8,36 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using Unity.Attributes;
 
 namespace HotelManager.ViewModel
 {
-    public class RoomViewModel : EmployeeViewModel, INotifyPropertyChanged
+    public class RoomViewModel : INotifyPropertyChanged
     {
-        public RoomViewModel(IRoomService roomService):base(roomService)
+        public RoomViewModel(IService<Room> roomService)
         {
             this.roomService = roomService;
             Rooms = roomService.GetItems();
-            Room = new Room();
+            Room = Rooms.FirstOrDefault();
+            _addCommand = new DelegateCommand(Add);
+            _deleteCommand = new DelegateCommand(Delete);
+            _editCommand = new DelegateCommand(Edit);
             _clearCommand = new DelegateCommand(Clear);
-            _addEditCommand = new DelegateCommand(AddEdit);
         }
         #region fields
+        private ObservableCollection<Room> rooms;
+        private ObservableCollection<Furniture> furniture;
+        private IService<Room> roomService;
+        private readonly DelegateCommand _addCommand;
+        private readonly DelegateCommand _deleteCommand;
         private readonly DelegateCommand _clearCommand;
-        private readonly DelegateCommand _addEditCommand;
-        private List<Room> rooms;
-        private List<Furniture> furniture;
-        private IRoomService roomService;
+        private readonly DelegateCommand _editCommand;
         private Room room;
         #endregion
         #region properties
-        public List<Room> Rooms { get { return rooms; }set { rooms = value; NotifyPropertyChanged("Rooms"); } }
-        public List<Furniture> Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
+        public ObservableCollection<Room> Rooms { get { return rooms; }set { rooms = value; NotifyPropertyChanged("Rooms"); } }
+        public ObservableCollection<Furniture> Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
         public Room Room { get { return room; } set { room = value; NotifyPropertyChanged("Room"); } }
         #endregion
         #region INotifyPropertyChanged Members
@@ -44,26 +50,58 @@ namespace HotelManager.ViewModel
         }
         #endregion
         #region Commands
+        public DelegateCommand AddCommand { get { return _addCommand; } }
+        public DelegateCommand DeleteCommand { get { return _deleteCommand; } }
         public DelegateCommand ClearCommand { get { return _clearCommand; } }
-        public DelegateCommand AddEditCommand { get { return _addEditCommand; } }
+        public DelegateCommand EditCommand { get { return _editCommand; } }
         #endregion
         #region Methods
-        private void AddEdit(object param)
+        private void Add(object o)
         {
-            if(Rooms.Contains(Room))
+            try
             {
-                roomService.Edit(Room);
-                Rooms = roomService.GetItems();
+                roomService.Add(room);
+                Rooms.Add(room);
             }
-            else
+            catch(Exception e)
             {
-                roomService.Add(Room);
-                Rooms = roomService.GetItems();
+                MessageBox.Show(e.Message);
             }
         }
-        private void Clear(object param)
+        private void Clear(object o)
         {
             Room = new Room();
+        }
+        private void Edit(object o)
+        {
+            try
+            {
+                roomService.Edit(room);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        private void Delete(object o)
+        {
+            try
+            {
+                roomService.Delete(room);
+                Rooms.Remove(room);
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+        #endregion
+        #region ViewModels
+        [Dependency]
+        public FurnitureViewModel FurnitureViewModel
+        {
+            get; set;
         }
         #endregion
     }

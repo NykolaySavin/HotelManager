@@ -33,10 +33,7 @@ namespace HotelManager.View
         {
             this.Content = page;
         }
-        public IViewModel ViewModel
-        {
-            set { DataContext = value; }
-        }
+
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {

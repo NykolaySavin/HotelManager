@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.ViewModel
 {
-    public class EmployeeViewModel : IViewModel
+    public class EmployeeViewModel : IViewModel<EmployeeViewModel>
     {
         public IRoomService RoomService { get;  }
         public EmployeeViewModel(IRoomService roomService)

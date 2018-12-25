@@ -111,8 +111,13 @@
     <Compile Include="Model\OrderDirectory\Service.cs" />
     <Compile Include="Model\OrderDirectory\ServiceType.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Services\FurnitureService.cs" />
+    <Compile Include="Model\Services\GenericService.cs" />
     <Compile Include="Model\Services\IService.cs" />
+    <Compile Include="Model\Services\OrderService.cs" />
     <Compile Include="Model\Services\RoomService.cs" />
+    <Compile Include="ViewModel\AdminViewModel.cs" />
+    <Compile Include="ViewModel\FurnitureViewModel.cs" />
     <Compile Include="ViewModel\RoomViewModel.cs" />
     <Compile Include="ViewModel\AsyncCommand.cs" />
     <Compile Include="ViewModel\Autorization\AuthenticationViewModel.cs" />
@@ -123,6 +128,9 @@
     </Compile>
     <Compile Include="View\EmployeeControl.xaml.cs">
       <DependentUpon>EmployeeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\FurnitureControl.xaml.cs">
+      <DependentUpon>FurnitureControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
@@ -138,14 +146,15 @@
     <Compile Include="View\RoomControl.xaml.cs">
       <DependentUpon>RoomControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\RoomEditor.xaml.cs">
-      <DependentUpon>RoomEditor.xaml</DependentUpon>
-    </Compile>
     <Page Include="View\AdminControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EmployeeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FurnitureControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,10 +167,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RoomControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\RoomEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

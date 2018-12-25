@@ -1,5 +1,6 @@
 ﻿using HotelManager.Model.Autorization;
 using HotelManager.Model.Context;
+using HotelManager.Model.OrderDirectory;
 using HotelManager.Model.Services;
 using HotelManager.ViewModel;
 using HotelManager.ViewModel.Autorization;
@@ -21,7 +22,10 @@ namespace HotelManager.View
         {
             container = new UnityContainer();
             main = App.Current.MainWindow as Main;
-            container.RegisterType<IRoomService, RoomService>();
+            container.RegisterType<IService<Room>, RoomService>();
+            container.RegisterType<RoomViewModel, RoomViewModel>();
+            container.RegisterType<FurnitureViewModel, FurnitureViewModel>();
+            container.RegisterType<IService<Furniture>, FurnitureService>();
         }
         private static AdminControl adminControl;
         public static AdminControl AdminControl

@@ -30,14 +30,7 @@ namespace HotelManager.View
         {
             InitializeComponent();
         }
-        [Dependency]
-        public EmployeeViewModel ViewModel
-        {
-            set
-            {
-                DataContext = value;
-            }
-        }
+       
 
     }
 }

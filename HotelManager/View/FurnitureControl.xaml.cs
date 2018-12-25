@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HotelManager.ViewModel;
+using HotelManager.ViewModel.Autorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,17 +14,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Unity.Attributes;
 
 namespace HotelManager.View
 {
     /// <summary>
-    /// Логика взаимодействия для RoomEditor.xaml
+    /// Логика взаимодействия для FurnitureControl.xaml
     /// </summary>
-    public partial class RoomEditor : UserControl
+    public partial class FurnitureControl : UserControl
     {
-        public RoomEditor()
+        public FurnitureControl()
         {
             InitializeComponent();
         }
+       
     }
 }

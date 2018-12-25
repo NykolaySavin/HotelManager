@@ -31,12 +31,9 @@ namespace HotelManager.View
             InitializeComponent();
         }
         [Dependency]
-        public RoomViewModel ViewModel
+        public AdminViewModel ViewModel
         {
-            set
-            {
-                DataContext = value;
-            }
+            set { DataContext = value; }
         }
     }
 }

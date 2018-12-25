@@ -14,9 +14,9 @@ using System.Windows.Controls;
 
 namespace HotelManager.ViewModel.Autorization
 {
-    public interface IViewModel { }
+    public interface IViewModel<T> { }
 
-    public class AuthenticationViewModel : IViewModel, INotifyPropertyChanged
+    public class AuthenticationViewModel : IViewModel<AuthenticationViewModel>, INotifyPropertyChanged
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly AsyncCommand<object> _loginCommand;

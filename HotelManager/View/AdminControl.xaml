@@ -13,10 +13,10 @@
         
         <TabControl>
             <TabItem Header="Room Management" x:Name="roomPage">
-                <local:RoomControl></local:RoomControl>
+                <local:RoomControl DataContext="{Binding  RoomViewModel}"></local:RoomControl>
             </TabItem>
             <TabItem Header="Client Management">
-                <local:EmployeeControl></local:EmployeeControl>
+                <local:EmployeeControl ></local:EmployeeControl>
             </TabItem>
             <TabItem Header="Employee Management"></TabItem>
         </TabControl>
