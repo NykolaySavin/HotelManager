@@ -13,14 +13,10 @@
         
         <TabControl>
             <TabItem Header="Room Management" x:Name="roomPage">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.66*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.33*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+
                     <local:RoomControl Grid.Column="0" DataContext="{Binding  RoomViewModel}"></local:RoomControl>
-                    <local:FurnitureControl Grid.Column="1" DataContext="{Binding FurnitureViewModel}"></local:FurnitureControl>
-                </Grid>
+                   
+        
               
             </TabItem>
             <TabItem Header="Client Management">

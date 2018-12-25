@@ -39,16 +39,16 @@ namespace HotelManager.View
                 //container.RegisterType<DbContext, HotelContext>();
                 HotelContext context = new HotelContext();
                 container.RegisterType<IService<Furniture>, FurnitureService>(new InjectionConstructor(context));
-                container.RegisterType<IService<Room>, RoomService>(new InjectionConstructor(new object[] { context,container.Resolve<FurnitureViewModel>() } ));
+                container.RegisterType<IService<Room>, RoomService>(new InjectionConstructor(context ));
                
 
 
-                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>(),container.Resolve<FurnitureViewModel>() }));
+                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>() }));
                 //AdminViewModel viewmodel = container.Resolve<AdminViewModel>();
                 container.RegisterType<AdminControl>();
                 adminControl = container.Resolve<AdminControl>();
-                main.Width = 1000;
-                main.Height = 600;
+                main.Width = 1200;
+                main.Height = 800;
                 return adminControl;
             }
         }

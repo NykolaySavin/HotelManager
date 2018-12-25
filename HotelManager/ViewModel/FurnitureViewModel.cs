@@ -14,13 +14,11 @@ namespace HotelManager.ViewModel
 {
     public class FurnitureViewModel : IViewModel<FurnitureViewModel>
     {
-        public FurnitureViewModel(IService<Furniture> furnitureService, IService<Room> roomService)
+        public FurnitureViewModel(IService<Furniture> furnitureService)
         {
             this.furnitureService = furnitureService;
-            this.roomService = roomService;
             Furnitures = furnitureService.GetObservable();
             Furniture = new Furniture();
-            Rooms = roomService.GetObservable();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
@@ -30,9 +28,7 @@ namespace HotelManager.ViewModel
         private ObservableCollection<Furniture> furnitures;
         private Furniture furniture;
      
-        private ObservableCollection<Room> rooms;
         private IService<Furniture> furnitureService;
-        private IService<Room> roomService;
         private readonly DelegateCommand _addCommand;
         private readonly DelegateCommand _deleteCommand;
         private readonly DelegateCommand _clearCommand;
@@ -40,7 +36,6 @@ namespace HotelManager.ViewModel
         #endregion
         #region properties
         public ObservableCollection<Furniture> Furnitures { get { return furnitures; } set { furnitures = value; NotifyPropertyChanged("Furnitures"); } }
-        public ObservableCollection<Room> Rooms { get { return rooms; } set { rooms = value; NotifyPropertyChanged("Rooms"); } }
         public Furniture Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
        
         #endregion
