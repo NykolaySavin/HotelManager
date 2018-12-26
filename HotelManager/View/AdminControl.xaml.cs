@@ -34,6 +34,16 @@ namespace HotelManager.View
         public AdminViewModel ViewModel
         {
             set { DataContext = value; }
+            get { return (AdminViewModel)DataContext; }
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl)
+            {
+                ViewModel.Update();
+            }
+           
         }
     }
 }

@@ -11,7 +11,7 @@
     </UserControl.Resources>
     <Grid>
         
-        <TabControl>
+        <TabControl SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Room Management" x:Name="roomPage">
 
                     <local:RoomControl Grid.Column="0" DataContext="{Binding  RoomViewModel}"></local:RoomControl>
@@ -23,9 +23,11 @@
                 <local:ServiceTypeControl DataContext="{Binding  ServiceTypeViewModel}"></local:ServiceTypeControl>
             </TabItem>
             <TabItem Header="Client Management">
-                <local:EmployeeControl ></local:EmployeeControl>
+               
             </TabItem>
-            <TabItem Header="Employee Management"></TabItem>
+            <TabItem Header="Employee Management">
+                <local:EmployeeControl DataContext="{Binding  EmployeeViewModel}"></local:EmployeeControl>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>

@@ -45,16 +45,11 @@ namespace HotelManager.Model.Services
                 {
                     if (context.Entry(s).State == EntityState.Detached)
                         context.Set<Service>().Attach(s);
-
-                    //7- Add course in existing student's course collection
                     existingServiceType.Services.Add(s);
                 }
-                // context.Entry(item).State = EntityState.Modified;
                 context.SaveChanges();
-                // context.Entry(s).State = EntityState.Modified;
 
             }
-            //base.Update(item);
         }
     }
 }

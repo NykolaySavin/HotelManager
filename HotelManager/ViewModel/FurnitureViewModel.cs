@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace HotelManager.ViewModel
 {
-    public class FurnitureViewModel : IViewModel<FurnitureViewModel>
+    public class FurnitureViewModel : IViewModel<FurnitureViewModel>, INotifyPropertyChanged
     {
         public FurnitureViewModel(IService<Furniture> furnitureService)
         {

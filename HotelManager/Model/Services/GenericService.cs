@@ -62,9 +62,10 @@ namespace HotelManager.Model.Services
         }
         public virtual void Update(T item)
         {
-            if (_dbSet.Where(x => x.Id == item.Id).Count() != 0)
+            T i = _dbSet.Where(x => x.Id == item.Id).FirstOrDefault();
+            if (i != null)
             {
-                _context.Entry(item).State = EntityState.Modified;
+                _context.Entry(i).State = EntityState.Modified;
             _context.SaveChanges();
             }
             else
@@ -74,10 +75,11 @@ namespace HotelManager.Model.Services
         }
         public virtual void Remove(T item)
         {
-            if(_dbSet.Where(x=>x.Id==item.Id).Count()!=0)
+            T i = _dbSet.Where(x => x.Id == item.Id).FirstOrDefault();
+            if (i!=null)
             {
-                _context.Entry(item).State = EntityState.Deleted;
-                _dbSet.Remove(item);
+                _context.Entry(i).State = EntityState.Deleted;
+                _dbSet.Remove(i);
                 _context.SaveChanges();
             }
             else

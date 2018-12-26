@@ -11,9 +11,9 @@ namespace HotelManager.Model
 {
     public class Employee : Person
     {
-        public Employee( string name,string surname, string phone,string username, string email, string role) : base(name, surname, email, phone)
+        public Employee( string name,string surname, string phone, string email, string role) : base(name, surname, email, phone)
         {
-            Username = username;
+            Username =email;
             Email = email;
             Role = role;
         }

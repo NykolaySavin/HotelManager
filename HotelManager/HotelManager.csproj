@@ -119,6 +119,7 @@
     <Compile Include="Model\OrderDirectory\Service.cs" />
     <Compile Include="Model\OrderDirectory\ServiceType.cs" />
     <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Services\EmployeeService.cs" />
     <Compile Include="Model\Services\FurnitureService.cs" />
     <Compile Include="Model\Services\GenericService.cs" />
     <Compile Include="Model\Services\IService.cs" />

@@ -129,7 +129,7 @@ namespace HotelManager.ViewModel
                 MessageBox.Show(e.Message);
             }
         }
-        private void OnUpdate(object sender, NotifyCollectionChangedEventArgs e)
+        public void OnUpdate(object sender, NotifyCollectionChangedEventArgs e)
         {
             ServiceType = null;
             NotifyPropertyChanged("ServiceTypes");

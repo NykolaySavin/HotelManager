@@ -1,4 +1,5 @@
-﻿using HotelManager.Model.Autorization;
+﻿using HotelManager.Model;
+using HotelManager.Model.Autorization;
 using HotelManager.Model.Context;
 using HotelManager.Model.OrderDirectory;
 using HotelManager.Model.Services;
@@ -43,9 +44,9 @@ namespace HotelManager.View
                 container.RegisterType<IService<Service>, ServiceService>(new InjectionConstructor(context));
                 container.RegisterType<IService<ServiceType>, ServiceTypeService>(new InjectionConstructor(context));
 
+                container.RegisterType<IService<Employee>, EmployeeService>(new InjectionConstructor(context));
 
-
-                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>(), container.Resolve<ServiceTypeViewModel>() }));
+                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>(), container.Resolve<ServiceTypeViewModel>(), container.Resolve<EmployeeViewModel>() }));
                 //AdminViewModel viewmodel = container.Resolve<AdminViewModel>();
                 container.RegisterType<AdminControl>();
                 adminControl = container.Resolve<AdminControl>();
