@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelManager.Model.OrderDirectory;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,7 +21,10 @@ namespace HotelManager.Model
         {
 
         }
-
+        public Service Service
+        {
+            get;set;
+        }
         public string Username
         {
             get;

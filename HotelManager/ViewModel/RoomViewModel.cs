@@ -4,6 +4,7 @@ using HotelManager.Model.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,12 @@ namespace HotelManager.ViewModel
             Rooms = roomService.GetObservable();
             Room = new Room();
             FurnitureViewModel = furnitureViewModel;
+            FurnitureViewModel.Rooms = Rooms;
+            FurnitureViewModel.Furnitures.CollectionChanged += OnUpdate;
+           // FurnitureViewModel.Rooms.CollectionChanged += OnUpdate;
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
-            _clearCommand = new DelegateCommand(Clear);
-
         }
         #region fields
         private ObservableCollection<Room> rooms;
@@ -33,7 +35,6 @@ namespace HotelManager.ViewModel
         private IService<Room> roomService;
         private readonly DelegateCommand _addCommand;
         private readonly DelegateCommand _deleteCommand;
-        private readonly DelegateCommand _clearCommand;
         private readonly DelegateCommand _editCommand;
         private Room room;
         #endregion
@@ -49,12 +50,12 @@ namespace HotelManager.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (room == null) Room = new Room();
         }
         #endregion
         #region Commands
         public DelegateCommand AddCommand { get { return _addCommand; } }
         public DelegateCommand DeleteCommand { get { return _deleteCommand; } }
-        public DelegateCommand ClearCommand { get { return _clearCommand; } }
         public DelegateCommand EditCommand { get { return _editCommand; } }
         #endregion
         #region Methods
@@ -64,16 +65,12 @@ namespace HotelManager.ViewModel
             {
                 Room r = new Room { Number = room.Number };
                 roomService.Create(r);
-                Rooms.Add(room);
+                Rooms.Add(r);
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
             }
-        }
-        private void Clear(object o)
-        {
-            Room = new Room();
         }
         private void Edit(object o)
         {
@@ -90,6 +87,7 @@ namespace HotelManager.ViewModel
         {
             try
             {
+
                 roomService.Remove(room);
                 Rooms.Remove(room);
 
@@ -98,6 +96,13 @@ namespace HotelManager.ViewModel
             {
                 MessageBox.Show(e.Message);
             }
+        }
+        private void OnUpdate(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Rooms");
+            NotifyPropertyChanged("Room");           
+            NotifyPropertyChanged("Furniture");
+            Room = null;
         }
         #endregion
         #region ViewModels

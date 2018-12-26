@@ -10,7 +10,7 @@ namespace HotelManager.Model.Services
     public interface IService<T> where T:class
     {
         void Create(T item);
-        T FindById(int id);
+        T FindById(Guid id);
         IEnumerable<T> Get();
         ObservableCollection<T> GetObservable();
         IEnumerable<T> Get(Func<T, bool> predicate);

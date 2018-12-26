@@ -19,6 +19,9 @@
         
               
             </TabItem>
+            <TabItem Header="Service Management">
+                <local:ServiceTypeControl ></local:ServiceTypeControl>
+            </TabItem>
             <TabItem Header="Client Management">
                 <local:EmployeeControl ></local:EmployeeControl>
             </TabItem>

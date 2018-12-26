@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HotelManager.Model.Services
 {
-    public class GenericService<T> :IService<T> where T :class
+    public class GenericService<T> :IService<T> where T :Base
     {
         DbContext _context;
         DbSet<T> _dbSet;
@@ -38,7 +38,7 @@ namespace HotelManager.Model.Services
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();
         }
-        public T FindById(int id)
+        public T FindById(Guid id)
         {
             return _dbSet.Find(id);
         }
@@ -46,17 +46,35 @@ namespace HotelManager.Model.Services
         public virtual void Create(T item)
         {
             _dbSet.Add(item);
+            _context.Entry(item).State = EntityState.Added;
+
             _context.SaveChanges();
         }
         public virtual void Update(T item)
         {
-            _context.Entry(item).State = EntityState.Modified;
+            if (_dbSet.Where(x => x.Id == item.Id).Count() != 0)
+            {
+                _context.Entry(item).State = EntityState.Modified;
             _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("There are not such item in database");
+            }
         }
         public virtual void Remove(T item)
         {
-            _dbSet.Remove(item);
-            _context.SaveChanges();
+            if(_dbSet.Where(x=>x.Id==item.Id).Count()!=0)
+            {
+                _context.Entry(item).State = EntityState.Deleted;
+                _dbSet.Remove(item);
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("There are not such item in database");
+            }
+            
         }
         public IEnumerable<T> GetWithInclude(params Expression<Func<T, object>>[] includeProperties)
         {

@@ -18,26 +18,23 @@ namespace HotelManager.ViewModel
         {
             this.furnitureService = furnitureService;
             Furnitures = furnitureService.GetObservable();
-            Furniture = new Furniture();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
-            _clearCommand = new DelegateCommand(Clear);
         }
         #region fields
         private ObservableCollection<Furniture> furnitures;
         private Furniture furniture;
-     
+        private ObservableCollection<Room> rooms;
         private IService<Furniture> furnitureService;
         private readonly DelegateCommand _addCommand;
         private readonly DelegateCommand _deleteCommand;
-        private readonly DelegateCommand _clearCommand;
         private readonly DelegateCommand _editCommand;
         #endregion
         #region properties
-        public ObservableCollection<Furniture> Furnitures { get { return furnitures; } set { furnitures = value; NotifyPropertyChanged("Furnitures"); } }
-        public Furniture Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
-       
+        public ObservableCollection<Furniture> Furnitures { get { return furnitures; } set { furnitures = value; NotifyPropertyChanged("Furnitures"); NotifyPropertyChanged("Rooms"); } }
+        public Furniture Furniture { get {   return furniture; } set { furniture = value;  NotifyPropertyChanged("Furniture"); } }
+        public ObservableCollection<Room> Rooms { get { return rooms; } set { rooms = value; NotifyPropertyChanged("Rooms"); } }
         #endregion
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
@@ -46,12 +43,12 @@ namespace HotelManager.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (furniture == null) Furniture= new Furniture();
         }
         #endregion
         #region Commands
         public DelegateCommand AddCommand { get { return _addCommand; } }
         public DelegateCommand DeleteCommand { get { return _deleteCommand; } }
-        public DelegateCommand ClearCommand { get { return _clearCommand; } }
         public DelegateCommand EditCommand { get { return _editCommand; } }
         #endregion
         #region Methods
@@ -68,10 +65,6 @@ namespace HotelManager.ViewModel
                 MessageBox.Show(e.Message);
             }
         }
-        private void Clear(object o)
-        {
-            Furniture = new Furniture();
-        }
         private void Edit(object o)
         {
             try
@@ -87,9 +80,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                furnitureService.Remove(furniture);
+                furnitureService.Remove(Furniture);
                 Furnitures.Remove(furniture);
-
             }
             catch (Exception e)
             {
