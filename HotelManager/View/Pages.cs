@@ -40,10 +40,12 @@ namespace HotelManager.View
                 HotelContext context = new HotelContext();
                 container.RegisterType<IService<Furniture>, FurnitureService>(new InjectionConstructor(context));
                 container.RegisterType<IService<Room>, RoomService>(new InjectionConstructor(context ));
-               
+                container.RegisterType<IService<Service>, ServiceService>(new InjectionConstructor(context));
+                container.RegisterType<IService<ServiceType>, ServiceTypeService>(new InjectionConstructor(context));
 
 
-                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>() }));
+
+                container.RegisterType<AdminViewModel>(new InjectionConstructor(new object[] {context, container.Resolve<RoomViewModel>(), container.Resolve<ServiceTypeViewModel>() }));
                 //AdminViewModel viewmodel = container.Resolve<AdminViewModel>();
                 container.RegisterType<AdminControl>();
                 adminControl = container.Resolve<AdminControl>();

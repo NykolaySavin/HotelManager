@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel.Dispatcher;
 using System.Text;
@@ -8,6 +9,31 @@ using System.Windows.Input;
 
 namespace HotelManager.ViewModel
 {
+    public class LambdaComparer<T> : IEqualityComparer<T>
+    {
+        private readonly Func<T, T, bool> _expression;
+
+        public LambdaComparer(Func<T, T, bool> lambda)
+        {
+            _expression = lambda;
+        }
+
+        public bool Equals(T x, T y)
+        {
+            return _expression(x, y);
+        }
+
+        public int GetHashCode(T obj)
+        {
+            /*
+             If you just return 0 for the hash the Equals comparer will kick in. 
+             The underlying evaluation checks the hash and then short circuits the evaluation if it is false.
+             Otherwise, it checks the Equals. If you force the hash to be true (by assuming 0 for both objects), 
+             you will always fall through to the Equals check which is what we are always going for.
+            */
+            return 0;
+        }
+    }
     public static class TaskUtilities
     {
 #pragma warning disable RECS0165 // Asynchronous methods should return a Task instead of void
@@ -22,6 +48,23 @@ namespace HotelManager.ViewModel
             {
                 handler?.HandleError(ex);
             }
+        }
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> listA, IEnumerable<T> listB, Func<T, T, bool> lambda)
+        {
+            return listA.Except(listB, new LambdaComparer<T>(lambda));
+        }
+        public static IEnumerable<T> Intersect<T>(this IEnumerable<T> listA, IEnumerable<T> listB, Func<T, T, bool> lambda)
+        {
+            return listA.Intersect(listB, new LambdaComparer<T>(lambda));
+        }
+        public static ObservableCollection<T> ToObservableCollection<T>
+    (this IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            return new ObservableCollection<T>(source);
         }
     }
     public interface IAsyncCommand<T> : ICommand

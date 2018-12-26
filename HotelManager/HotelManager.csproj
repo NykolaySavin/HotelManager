@@ -103,6 +103,10 @@
     <Compile Include="Migrations\201812261535428_SampleMigrations.Designer.cs">
       <DependentUpon>201812261535428_SampleMigrations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812261629465_SampleMigrations1.cs" />
+    <Compile Include="Migrations\201812261629465_SampleMigrations1.Designer.cs">
+      <DependentUpon>201812261629465_SampleMigrations1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Base.cs" />
     <Compile Include="Model\Context\HotelContext.cs" />
@@ -120,6 +124,8 @@
     <Compile Include="Model\Services\IService.cs" />
     <Compile Include="Model\Services\OrderService.cs" />
     <Compile Include="Model\Services\RoomService.cs" />
+    <Compile Include="Model\Services\ServiceService.cs" />
+    <Compile Include="Model\Services\ServiceTypeService.cs" />
     <Compile Include="ViewModel\AdminViewModel.cs" />
     <Compile Include="ViewModel\FurnitureViewModel.cs" />
     <Compile Include="ViewModel\RoomViewModel.cs" />
@@ -128,8 +134,12 @@
     <Compile Include="ViewModel\DelegateCommand.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\ServiceTypeViewModel.cs" />
+    <Compile Include="ViewModel\ServiceViewModel.cs" />
     <Compile Include="View\AdminControl.xaml.cs">
       <DependentUpon>AdminControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientControl.xaml.cs">
+      <DependentUpon>ClientControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EmployeeControl.xaml.cs">
       <DependentUpon>EmployeeControl.xaml</DependentUpon>
@@ -158,6 +168,10 @@
       <DependentUpon>ServiceTypeControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AdminControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,6 +224,9 @@
     </Compile>
     <EmbeddedResource Include="Migrations\201812261535428_SampleMigrations.resx">
       <DependentUpon>201812261535428_SampleMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812261629465_SampleMigrations1.resx">
+      <DependentUpon>201812261629465_SampleMigrations1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -10,7 +10,7 @@ namespace HotelManager.Model.OrderDirectory
     public class ServiceType : Base
     {
         public string Type { get; set; }
-        public List<Service> Services { get; set; }
+        public virtual List<Service> Services { get; set; }
         public ServiceType()
         {
             Services = new List<Service>();

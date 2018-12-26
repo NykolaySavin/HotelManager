@@ -34,6 +34,16 @@ namespace HotelManager.Model.Services
             }
             return collection;
         }
+        public virtual ObservableCollection<T> GetObservable(Func<T, bool> predicate)
+        {
+            List<T> ts = _dbSet.AsNoTracking().Where(predicate).ToList();
+            ObservableCollection<T> collection = new ObservableCollection<T>();
+            foreach (var item in ts)
+            {
+                collection.Add(item);
+            }
+            return collection;
+        }
         public IEnumerable<T> Get(Func<T, bool> predicate)
         {
             return _dbSet.AsNoTracking().Where(predicate).ToList();

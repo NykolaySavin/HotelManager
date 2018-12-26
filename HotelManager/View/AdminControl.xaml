@@ -20,7 +20,7 @@
               
             </TabItem>
             <TabItem Header="Service Management">
-                <local:ServiceTypeControl ></local:ServiceTypeControl>
+                <local:ServiceTypeControl DataContext="{Binding  ServiceTypeViewModel}"></local:ServiceTypeControl>
             </TabItem>
             <TabItem Header="Client Management">
                 <local:EmployeeControl ></local:EmployeeControl>

@@ -1,6 +1,4 @@
-﻿using HotelManager.ViewModel;
-using HotelManager.ViewModel.Autorization;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
@@ -15,21 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Unity.Attributes;
 
 namespace HotelManager.View
 {
     /// <summary>
-    /// Логика взаимодействия для EmployeeControl.xaml
+    /// Логика взаимодействия для ClientControl.xaml
     /// </summary>
-    /// 
-    public partial class EmployeeControl : UserControl
+    [PrincipalPermission(SecurityAction.Demand)]
+    public partial class ClientControl : UserControl
     {
-        public EmployeeControl()
+        public ClientControl()
         {
             InitializeComponent();
         }
-       
-
     }
 }
