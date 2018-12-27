@@ -9,12 +9,12 @@ namespace HotelManager.Model.OrderDirectory
     public class Service : Base
     {
         public string Name { get; set; }
-        public virtual List<Employee> Employees { get; set; }
-        public virtual List<ServiceType> ServiceTypes { get; set; }
+        public ICollection<Employee> Employees { get; set; }
+        public  ICollection<ServiceType> ServiceTypes { get; set; }
         public Service()
         {
-            Employees = new List<Employee>();
             ServiceTypes = new List<ServiceType>();
+            Employees = new List<Employee>();
         }
         public override string ToString()
         {

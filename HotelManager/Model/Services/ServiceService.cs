@@ -16,5 +16,9 @@ namespace HotelManager.Model.Services
         {
             this.context = context;
         }
+        public override IEnumerable<Service> Get()
+        {
+            return base.GetWithInclude(x => x.ServiceTypes, x => x.Employees);
+        }
     }
 }

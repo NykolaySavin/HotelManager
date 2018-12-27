@@ -22,14 +22,13 @@ namespace HotelManager.ViewModel
         {
             this.employeeService = employeeService;
             this.serviceService = serviceService;
-           // Employees = employeeService.GetObservable();
             Employee = new Employee();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
         }
         #region fields
-        private ObservableCollection<Employee> employees;
+        
         private IService<Employee> employeeService;
         private IService<Service> serviceService;
         private readonly DelegateCommand _addCommand;
@@ -39,9 +38,9 @@ namespace HotelManager.ViewModel
         private Service service;
         #endregion
         #region properties
-       // public ObservableCollection<Service> Services { get { return serviceService.GetObservable(); } }
-        public ObservableCollection<Employee> Employees { get { return employees; } set { employees = value; NotifyPropertyChanged("Employees"); } }
-        public Employee Employee { get { return employee; } set { employee = value; NotifyPropertyChanged("Employee"); } }
+        public ObservableCollection<Service> Services { get { return serviceService.Get().ToObservableCollection(); } }
+        public ObservableCollection<Employee> Employees { get { return  employeeService.Get().ToObservableCollection(); } }
+        public Employee Employee { get { return employee; } set { employee =new Employee() {Name= value.Name,Surname= value.Surname,Phone= value.Phone,Email= value.Email,Role= value.Role, Service=value.Service, Id=value.Id } ; NotifyPropertyChanged("Employee"); } }
         public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }
         public List<string> Roles { get { return new List<string>() { "Administrators", "None"}; }}
         #endregion
@@ -67,8 +66,7 @@ namespace HotelManager.ViewModel
             {
                 Employee e = new Employee(Employee.Name, Employee.Surname, Employee.Phone, Employee.Email, Employee.Role) { Service = Employee.Service};
                 employeeService.Create(e);
-                Employees.Add(e);
-                Service = null;
+                OnUpdate(null,null);
             }
             catch (Exception e)
             {
@@ -79,8 +77,14 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                employeeService.Update(employee);
-                Service = null;
+                Employee e = employeeService.FindById(Employee.Id);
+                e.Name = Employee.Name;
+                e.Phone = Employee.Phone;
+                e.Role = Employee.Role;
+                e.Service = Employee.Service;
+                e.Surname = Employee.Surname;
+                employeeService.Update(e);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -91,10 +95,9 @@ namespace HotelManager.ViewModel
         {
             try
             {
-
-                employeeService.Remove(employee);
-               Employees.Remove(employee);
-                Service = null;
+                Employee e = employeeService.FindById(Employee.Id);
+                employeeService.Remove(e);
+                OnUpdate(null, null);
 
             }
             catch (Exception e)

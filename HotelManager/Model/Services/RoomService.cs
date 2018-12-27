@@ -18,7 +18,7 @@ namespace HotelManager.Model.Services
         }
         public override IEnumerable<Room> Get()
         {
-            IEnumerable<Room> rooms =  base.GetWithInclude(x=>x.Furniture);
+            IEnumerable<Room> rooms = base.GetWithInclude(x => x.Furniture);
             return rooms;
         }
     }

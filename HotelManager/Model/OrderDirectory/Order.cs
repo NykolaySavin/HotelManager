@@ -24,8 +24,8 @@ namespace HotelManager.Model.OrderDirectory
         public DateTime FinishDate { get; set; }
         public double Sum { get; set; }
 
-        public Client Client { get; set; }
-        public Room Room { get; set; }
-        public ServiceType ServiceType { get; set; }
+        public virtual Client Client { get; set; }
+        public virtual Room Room { get; set; }
+        public virtual ServiceType ServiceType { get; set; }
     }
 }

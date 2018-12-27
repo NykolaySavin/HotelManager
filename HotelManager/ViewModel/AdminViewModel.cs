@@ -20,8 +20,8 @@ namespace HotelManager.ViewModel
         }
         public void Update()
         {
-           // RoomViewModel.OnUpdate(null, null);
-          //  ServiceTypeViewModel.OnUpdate(null, null);
+            RoomViewModel.OnUpdate(null, null);
+            ServiceTypeViewModel.OnUpdate(null, null);
             EmployeeViewModel.OnUpdate(null, null);
         }
         public RoomViewModel RoomViewModel

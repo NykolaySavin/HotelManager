@@ -10,7 +10,7 @@ namespace HotelManager.Model.OrderDirectory
     public class Room : Base
     {
         public string Number { get; set; }
-        public virtual ICollection<Furniture> Furniture { get; set; }
+        public  ICollection<Furniture> Furniture { get; set; }
         public RoomState State { get; set; }
         public Room()
         {

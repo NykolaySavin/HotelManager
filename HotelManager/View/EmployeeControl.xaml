@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
           
                 <TextBlock  Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">ALL FURNITURE</TextBlock>
-                <DataGrid Grid.Row="1"  Grid.Column="2"  IsReadOnly="True" Width="200" Height="200" ItemsSource="{Binding Employees}" AutoGenerateColumns="False" SelectedItem="{Binding Employee, Mode=TwoWay}" SelectionMode="Single">
+                <DataGrid Grid.Row="1"  Grid.Column="2" IsReadOnly="True"  Width="200" Height="200" ItemsSource="{Binding Employees}" AutoGenerateColumns="False" SelectedItem="{Binding Employee}" SelectionMode="Single">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Binding="{Binding Service}"></DataGridTextColumn>
@@ -55,13 +55,13 @@
                     <TextBox Margin="0,0,0,0" Grid.Column="2" Grid.Row="2" Height="30" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Employee.Surname}"></TextBox>
                 <TextBox Margin="0,0,0,0" Grid.Column="2" Grid.Row="3" Height="30" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Employee.Phone}"></TextBox>
                 <TextBox Margin="0,0,0,0" Grid.Column="2" Grid.Row="6" Height="30" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{Binding Employee.Email}"></TextBox>
-                <ComboBox ItemsSource="{Binding Services}" SelectedItem="{Binding Employee.Service, Mode=TwoWay}" Grid.Column="2" Grid.Row="4" Width="80" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"></ComboBox>
-                <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding Employee.Role, Mode=TwoWay}" Grid.Column="2" Grid.Row="5" Width="80" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"></ComboBox>
+                <ComboBox ItemsSource="{Binding Services}" SelectedItem="{Binding Employee.Service}" Grid.Column="2" Grid.Row="4" Width="80" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"></ComboBox>
+                <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding Employee.Role}" Grid.Column="2" Grid.Row="5" Width="80" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"></ComboBox>
                 <Button  Grid.Row="1"  x:Name="btnDelete"  Margin="5,0,0,0"  Height="30" Content="Delete" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding  DeleteCommand}"/>
-                    <Button  Grid.Row="2"  x:Name="btnAdd"  Margin="5,0,0,0"  Height="30" Content="Add" 
+                    <Button  Grid.Row="0"  x:Name="btnAdd"  Margin="5,0,0,0"  Height="30" Content="Add Clear" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding AddCommand}"/>
-                    <Button   Grid.Row="3"  x:Name="btnEdit"  Margin="5,0,0,0"  Height="30" Content="Edit" 
+                    <Button   Grid.Row="2"  x:Name="btnEdit"  Margin="5,0,0,0"  Height="30" Content="Edit" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Command="{Binding EditCommand}" />
 
                 </Grid>

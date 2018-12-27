@@ -67,9 +67,9 @@
               
                 <Button  Grid.Row="1"  x:Name="btnDelete"  Margin="5,0,0,0"  Height="30" Content="Delete" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding DeleteCommand}"/>
-                    <Button  Grid.Row="2"  x:Name="btnAdd"  Margin="5,0,0,0"  Height="30" Content="Add" 
+                    <Button  Grid.Row="0"  x:Name="btnAdd"  Margin="5,0,0,0"  Height="30" Content="Add Clear" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding AddCommand}"/>
-                    <Button   Grid.Row="3"  x:Name="btnEdit"  Margin="5,0,0,0"  Height="30" Content="Edit" 
+                    <Button   Grid.Row="2"  x:Name="btnEdit"  Margin="5,0,0,0"  Height="30" Content="Edit" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80" Command="{Binding EditCommand}" />
   
             </Grid>

@@ -34,7 +34,7 @@ namespace HotelManager.ViewModel
         #endregion
         #region properties
         public ObservableCollection<Furniture> Furnitures { get { return furnitureService.Get().ToObservableCollection(); } }
-        public Furniture Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
+        public Furniture Furniture { get { return furniture; } set {if(value!=null) furniture = new Furniture() { Name = value.Name, Price = value.Price, Room = value.Room, Id=value.Id }; NotifyPropertyChanged("Furniture"); } }
         public ObservableCollection<Room> Rooms { get { return roomService.Get().ToObservableCollection(); } }
         #endregion
         #region INotifyPropertyChanged Members
@@ -45,7 +45,7 @@ namespace HotelManager.ViewModel
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            if (propertyName == "Furniture" && Furniture!=null) CollectionChangedEvent.Invoke(null, null);
+            if (propertyName == "Furniture" && CollectionChangedEvent!=null) CollectionChangedEvent.Invoke(null, null);
         }
         #endregion
         #region Commands
@@ -71,7 +71,11 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                furnitureService.Update(furniture);
+                Furniture f = furnitureService.FindById(Furniture.Id);
+                f.Name = Furniture.Name;
+                f.Price = Furniture.Price;
+                f.Room = Furniture.Room;
+                furnitureService.Update(f);
                 OnUpdate(null, null);
             }
             catch (Exception e)
@@ -83,7 +87,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                furnitureService.Remove(Furniture);
+                Furniture f = furnitureService.FindById(Furniture.Id);
+                furnitureService.Remove(f);
                 OnUpdate(null, null);
             }
             catch (Exception e)

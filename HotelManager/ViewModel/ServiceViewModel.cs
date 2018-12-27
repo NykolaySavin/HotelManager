@@ -31,7 +31,7 @@ namespace HotelManager.ViewModel
         #endregion
         #region properties
         public ObservableCollection<Service> Services { get { return serviceService.Get().ToObservableCollection(); } }
-        public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }
+        public Service Service { get { return service; } set { if (value != null) service = new Service() { Employees=value.Employees, Id = value.Id, Name= value.Name, ServiceTypes= value.ServiceTypes }; NotifyPropertyChanged("Service"); } }
     
         #endregion
         #region INotifyPropertyChanged Members
@@ -68,7 +68,11 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                serviceService.Update(Service);
+                Service s = serviceService.FindById(Service.Id);
+                s.Name = Service.Name;
+                s.ServiceTypes = Service.ServiceTypes;
+                s.Employees = Service.Employees;
+                serviceService.Update(s);
                 OnUpdate(null, null);
             }
             catch (Exception e)
@@ -80,7 +84,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                serviceService.Remove(Service);
+                Service s = serviceService.FindById(Service.Id);
+                serviceService.Remove(s);
                 OnUpdate(null, null);
             }
             catch (Exception e)
@@ -93,7 +98,6 @@ namespace HotelManager.ViewModel
         {
             NotifyPropertyChanged("Services");
             NotifyPropertyChanged("Service");
-            Service = null;
         }
         #endregion
     }

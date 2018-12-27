@@ -18,13 +18,10 @@ namespace HotelManager.Model.Services
         {
             this._context = context;
         }
-        public override void Create(Furniture item)
+        public override IEnumerable<Furniture> Get()
         {
-            base.Create(item);
-        }
-        public override void Update(Furniture item)
-        {
-            base.Update(item);
+            return base.GetWithInclude(x => x.Room);
+
         }
     }
 }

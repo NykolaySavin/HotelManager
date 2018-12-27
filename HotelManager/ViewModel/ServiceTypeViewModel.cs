@@ -43,7 +43,8 @@ namespace HotelManager.ViewModel
         #region properties
         public ObservableCollection<ServiceType> ServiceTypes {get{ return serviceTypeService.Get().ToObservableCollection(); } }
         public ObservableCollection<Service> FreeServices { get { return ServiceViewModel.Services.Except(ServiceType.Services,(x,y)=>x.Id==y.Id).ToObservableCollection(); }}
-        public ServiceType ServiceType { get { return serviceType; } set { serviceType = value; NotifyPropertyChanged("ServiceType"); NotifyPropertyChanged("Services"); NotifyPropertyChanged("FreeServices"); } }
+        public ObservableCollection<Service> Services { get { return ServiceType.Services.ToObservableCollection(); } }
+        public ServiceType ServiceType { get { return serviceType; } set { if (value != null) serviceType = new ServiceType() { Id = value.Id, Services = value.Services, Type = value.Type }; NotifyPropertyChanged("ServiceType"); NotifyPropertyChanged("Services"); NotifyPropertyChanged("FreeServices"); } }
         public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }
         #endregion
         #region INotifyPropertyChanged Members
@@ -80,8 +81,9 @@ namespace HotelManager.ViewModel
             try
             {
                 ServiceType.Services.Add(Service);
-                serviceTypeService.Update(ServiceType);
-                OnUpdate(null, null);
+                this.Edit(null);
+                //serviceTypeService.Update(ServiceType);
+                //OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -93,8 +95,9 @@ namespace HotelManager.ViewModel
             try
             {
                 ServiceType.Services.Remove(Service);
-                serviceTypeService.Update(ServiceType);
-                OnUpdate(null, null);
+                this.Edit(null);
+                //serviceTypeService.Update(ServiceType);
+                //OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -105,19 +108,24 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                serviceTypeService.Update(serviceType);
+                ServiceType s = serviceTypeService.FindById(ServiceType.Id);
+                s.Services = ServiceType.Services;
+                s.Type = ServiceType.Type;
+                serviceTypeService.Update(s);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
+                OnUpdate(null, null);
             }
         }
         private void Delete(object o)
         {
             try
             {
-
-                serviceTypeService.Remove(serviceType);
+                ServiceType s = serviceTypeService.FindById(ServiceType.Id);
+                serviceTypeService.Remove(s);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -128,6 +136,8 @@ namespace HotelManager.ViewModel
         {
             NotifyPropertyChanged("ServiceTypes");
             NotifyPropertyChanged("ServiceType");
+            Service = null;
+            NotifyPropertyChanged("Service");
             NotifyPropertyChanged("Services");
             NotifyPropertyChanged("FreeServices");          
         }
