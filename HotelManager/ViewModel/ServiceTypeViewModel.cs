@@ -17,11 +17,11 @@ namespace HotelManager.ViewModel
         public ServiceTypeViewModel(IService<ServiceType> serviceTypeService, ServiceViewModel serviceViewModel)
         {
             this.serviceTypeService = serviceTypeService;
-            ServiceTypes = serviceTypeService.GetObservable();
-           // ServiceType = new ServiceType();
+          
+            ServiceType = new ServiceType();
             ServiceViewModel = serviceViewModel;
-            ServiceViewModel.Services.CollectionChanged += OnUpdate;
-            // FurnitureViewModel.Rooms.CollectionChanged += OnUpdate;
+            ServiceViewModel.CollectionChangedEvent += OnUpdate;
+            
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _addServiceCommand = new DelegateCommand(AddService);
@@ -41,20 +41,17 @@ namespace HotelManager.ViewModel
         private Service service;
         #endregion
         #region properties
-        public ObservableCollection<ServiceType> ServiceTypes { get { return serviceTypes; } set { serviceTypes = value; NotifyPropertyChanged("ServiceTypes"); } }
-        public ObservableCollection<Service> Services { get { return ServiceType.Services.Intersect(ServiceViewModel.Services,(x,y)=>x.Id==y.Id).ToObservableCollection(); } }
-        public ObservableCollection<Service> FreeServices { get { return ServiceViewModel.Services.Except(Services,(x,y)=>x.Id==y.Id).ToObservableCollection(); }}
+        public ObservableCollection<ServiceType> ServiceTypes {get{ return serviceTypeService.Get().ToObservableCollection(); } }
+        public ObservableCollection<Service> FreeServices { get { return ServiceViewModel.Services.Except(ServiceType.Services,(x,y)=>x.Id==y.Id).ToObservableCollection(); }}
         public ServiceType ServiceType { get { return serviceType; } set { serviceType = value; NotifyPropertyChanged("ServiceType"); NotifyPropertyChanged("Services"); NotifyPropertyChanged("FreeServices"); } }
         public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }
         #endregion
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
-
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            if (serviceType == null) ServiceType = new ServiceType();
         }
         #endregion
         #region Commands
@@ -71,7 +68,7 @@ namespace HotelManager.ViewModel
             {
                 ServiceType s = new ServiceType { Type = ServiceType.Type };
                 serviceTypeService.Create(s);
-                ServiceTypes.Add(s);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -121,8 +118,6 @@ namespace HotelManager.ViewModel
             {
 
                 serviceTypeService.Remove(serviceType);
-                ServiceTypes.Remove(serviceType);
-
             }
             catch (Exception e)
             {
@@ -131,11 +126,10 @@ namespace HotelManager.ViewModel
         }
         public void OnUpdate(object sender, NotifyCollectionChangedEventArgs e)
         {
-            ServiceType = null;
             NotifyPropertyChanged("ServiceTypes");
             NotifyPropertyChanged("ServiceType");
             NotifyPropertyChanged("Services");
-            NotifyPropertyChanged("FreeServices");
+            NotifyPropertyChanged("FreeServices");          
         }
         #endregion
         #region ViewModels

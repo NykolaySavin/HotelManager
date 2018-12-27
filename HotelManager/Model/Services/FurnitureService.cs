@@ -20,12 +20,10 @@ namespace HotelManager.Model.Services
         }
         public override void Create(Furniture item)
         {
-            _context.Entry(item.Room).State = EntityState.Unchanged;
             base.Create(item);
         }
         public override void Update(Furniture item)
         {
-            _context.Entry(item.Room).State = EntityState.Unchanged;
             base.Update(item);
         }
     }

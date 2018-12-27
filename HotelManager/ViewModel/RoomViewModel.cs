@@ -18,20 +18,16 @@ namespace HotelManager.ViewModel
     {
         public RoomViewModel(IService<Room> roomService, FurnitureViewModel furnitureViewModel)
         {
-            this.roomService = roomService;
-            Rooms = roomService.GetObservable();
-            Room = new Room();
+            this.roomService = roomService;            
             FurnitureViewModel = furnitureViewModel;
-            FurnitureViewModel.Rooms = Rooms;
-            FurnitureViewModel.Furnitures.CollectionChanged += OnUpdate;
-           // FurnitureViewModel.Rooms.CollectionChanged += OnUpdate;
+            FurnitureViewModel.CollectionChangedEvent += OnInnerUpdate;
+            CollectionChangedEvent += FurnitureViewModel.OnOuterUpdate;
+            Room = new Room();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
         }
         #region fields
-        private ObservableCollection<Room> rooms;
-        private ObservableCollection<Furniture> furniture;
         private IService<Room> roomService;
         private readonly DelegateCommand _addCommand;
         private readonly DelegateCommand _deleteCommand;
@@ -39,18 +35,19 @@ namespace HotelManager.ViewModel
         private Room room;
         #endregion
         #region properties
-        public ObservableCollection<Room> Rooms { get { return rooms; }set { rooms = value; NotifyPropertyChanged("Rooms"); } }
-        public ObservableCollection<Furniture> Furniture { get { return furniture; } set { furniture = value; NotifyPropertyChanged("Furniture"); } }
+        public ObservableCollection<Room> Rooms { get { return roomService.Get().ToObservableCollection(); } }
         public Room Room { get { return room; } set { room = value; NotifyPropertyChanged("Room"); } }
         #endregion
         #region INotifyPropertyChanged Members
+        public event NotifyCollectionChangedEventHandler CollectionChangedEvent;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            if (room == null) Room = new Room();
+            if (propertyName == "Rooms") CollectionChangedEvent.Invoke(null, null);
+
         }
         #endregion
         #region Commands
@@ -65,7 +62,7 @@ namespace HotelManager.ViewModel
             {
                 Room r = new Room { Number = room.Number };
                 roomService.Create(r);
-                Rooms.Add(r);
+                OnUpdate(null, null);
             }
             catch(Exception e)
             {
@@ -76,7 +73,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-               roomService.Update(room);
+               roomService.Update(Room);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -88,9 +86,8 @@ namespace HotelManager.ViewModel
             try
             {
 
-                roomService.Remove(room);
-                Rooms.Remove(room);
-
+                roomService.Remove(Room);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -101,8 +98,10 @@ namespace HotelManager.ViewModel
         {
             NotifyPropertyChanged("Rooms");
             NotifyPropertyChanged("Room");           
-            NotifyPropertyChanged("Furniture");
-            Room = null;
+        }
+        public void OnInnerUpdate(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Room");
         }
         #endregion
         #region ViewModels

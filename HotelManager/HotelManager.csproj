@@ -107,6 +107,10 @@
     <Compile Include="Migrations\201812261629465_SampleMigrations1.Designer.cs">
       <DependentUpon>201812261629465_SampleMigrations1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812271501507_SampleMigrations2.cs" />
+    <Compile Include="Migrations\201812271501507_SampleMigrations2.Designer.cs">
+      <DependentUpon>201812271501507_SampleMigrations2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Base.cs" />
     <Compile Include="Model\Context\HotelContext.cs" />
@@ -228,6 +232,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812261629465_SampleMigrations1.resx">
       <DependentUpon>201812261629465_SampleMigrations1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812271501507_SampleMigrations2.resx">
+      <DependentUpon>201812271501507_SampleMigrations2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

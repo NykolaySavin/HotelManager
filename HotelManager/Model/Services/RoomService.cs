@@ -16,15 +16,10 @@ namespace HotelManager.Model.Services
         {
 
         }
-        public override ObservableCollection<Room> GetObservable()
+        public override IEnumerable<Room> Get()
         {
             IEnumerable<Room> rooms =  base.GetWithInclude(x=>x.Furniture);
-            ObservableCollection<Room> collection = new ObservableCollection<Room>();
-            foreach (var item in rooms)
-            {
-                collection.Add(item);
-            }
-            return collection;
+            return rooms;
         }
     }
 }

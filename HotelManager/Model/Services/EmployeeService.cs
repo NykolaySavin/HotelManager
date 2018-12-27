@@ -42,15 +42,15 @@ namespace HotelManager.Model.Services
             context.Entry(item.Service).State = EntityState.Unchanged;
             base.Update(item);
         }
-        public override ObservableCollection<Employee> GetObservable()
-        {
-            IEnumerable<Employee> employees = base.GetWithInclude(x => x.Service);
-            ObservableCollection<Employee> collection = new ObservableCollection<Employee>();
-            foreach (var item in employees)
-            {
-                collection.Add(item);
-            }
-            return collection;
-        }
+        //public override ObservableCollection<Employee> GetObservable()
+        //{
+        //    IEnumerable<Employee> employees = base.GetWithInclude(x => x.Service);
+        //    ObservableCollection<Employee> collection = new ObservableCollection<Employee>();
+        //    foreach (var item in employees)
+        //    {
+        //        collection.Add(item);
+        //    }
+        //    return collection;
+        //}
     }
 }

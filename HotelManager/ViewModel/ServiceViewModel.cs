@@ -8,6 +8,7 @@ using System.ComponentModel;
 using HotelManager.Model.Services;
 using HotelManager.Model.OrderDirectory;
 using System.Windows;
+using System.Collections.Specialized;
 
 namespace HotelManager.ViewModel
 {
@@ -16,33 +17,32 @@ namespace HotelManager.ViewModel
         public ServiceViewModel(IService<Service> serviceService)
         {
             this.serviceService = serviceService;
-            Services = serviceService.GetObservable();
+            Service = new Service();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
             _editCommand = new DelegateCommand(Edit);
         }
         #region fields
-        private ObservableCollection<Service> services;
         private Service service;
-        private ObservableCollection<ServiceType> serviceTypes;
         private IService<Service> serviceService;
         private readonly DelegateCommand _addCommand;
         private readonly DelegateCommand _deleteCommand;
         private readonly DelegateCommand _editCommand;
         #endregion
         #region properties
-        public ObservableCollection<Service> Services { get { return services; } set { services = value; NotifyPropertyChanged("Services"); NotifyPropertyChanged("ServiceTypes"); } }
-        public Service CurrentService { get { return service; } set { service = value; NotifyPropertyChanged("CurrentService"); } }
+        public ObservableCollection<Service> Services { get { return serviceService.Get().ToObservableCollection(); } }
+        public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }
     
         #endregion
         #region INotifyPropertyChanged Members
         public event PropertyChangedEventHandler PropertyChanged;
-
+        public event NotifyCollectionChangedEventHandler CollectionChangedEvent;
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            if (service == null) CurrentService = new Service();
+            if (service == null) Service = new Service();
+            if(propertyName=="Services") CollectionChangedEvent.Invoke(null, null);
         }
         #endregion
         #region Commands
@@ -55,9 +55,9 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                Service s = new Service() { Name = CurrentService.Name };
+                Service s = new Service() { Name = Service.Name };
                 serviceService.Create(s);
-                Services.Add(s);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -68,7 +68,8 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                serviceService.Update(CurrentService);
+                serviceService.Update(Service);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
@@ -79,13 +80,20 @@ namespace HotelManager.ViewModel
         {
             try
             {
-                serviceService.Remove(CurrentService);
-                Services.Remove(CurrentService);
+                serviceService.Remove(Service);
+                OnUpdate(null, null);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
+        }
+        
+        public void OnUpdate(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("Services");
+            NotifyPropertyChanged("Service");
+            Service = null;
         }
         #endregion
     }

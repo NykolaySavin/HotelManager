@@ -22,7 +22,7 @@ namespace HotelManager.ViewModel
         {
             this.employeeService = employeeService;
             this.serviceService = serviceService;
-            Employees = employeeService.GetObservable();
+           // Employees = employeeService.GetObservable();
             Employee = new Employee();
             _addCommand = new DelegateCommand(Add);
             _deleteCommand = new DelegateCommand(Delete);
@@ -39,7 +39,7 @@ namespace HotelManager.ViewModel
         private Service service;
         #endregion
         #region properties
-        public ObservableCollection<Service> Services { get { return serviceService.GetObservable(); } }
+       // public ObservableCollection<Service> Services { get { return serviceService.GetObservable(); } }
         public ObservableCollection<Employee> Employees { get { return employees; } set { employees = value; NotifyPropertyChanged("Employees"); } }
         public Employee Employee { get { return employee; } set { employee = value; NotifyPropertyChanged("Employee"); } }
         public Service Service { get { return service; } set { service = value; NotifyPropertyChanged("Service"); } }

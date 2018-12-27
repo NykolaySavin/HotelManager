@@ -12,8 +12,6 @@ namespace HotelManager.Model.Services
         void Create(T item);
         T FindById(Guid id);
         IEnumerable<T> Get();
-        ObservableCollection<T> GetObservable();
-        ObservableCollection<T> GetObservable(Func<T, bool> predicate);
         IEnumerable<T> Get(Func<T, bool> predicate);
         void Remove(T item);
         void Update(T item);

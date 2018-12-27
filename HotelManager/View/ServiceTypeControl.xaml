@@ -27,7 +27,7 @@
                
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Grid.Row="1"  IsReadOnly="True" Grid.Column="1" Width="200" Height="200" ItemsSource="{Binding Services}" AutoGenerateColumns="False" SelectionMode="Single">
+        <DataGrid Grid.Row="1"  IsReadOnly="True" Grid.Column="1" Width="200" Height="200" ItemsSource="{Binding ServiceType.Services}" AutoGenerateColumns="False" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
             </DataGrid.Columns>
@@ -49,8 +49,8 @@
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding DeleteServiceCommand}"/>
             <Button  Grid.Row="2" Grid.Column="1"  x:Name="btnAddService"  Margin="5,0,0,0"  Height="30" Content="Add" 
             HorizontalAlignment="Center" VerticalAlignment="Top" Width="80"  Command="{Binding AddServiceCommand}"/>
-            <ComboBox Grid.Row="1" Width="100" Height="30" ItemsSource="{Binding Services}" SelectedItem="{Binding Service}"></ComboBox>
-            <ComboBox Grid.Row="2" Width="100" Height="30" ItemsSource="{Binding FreeServices}" SelectedItem="{Binding Service}"></ComboBox>
+            <ComboBox VerticalAlignment="Top" Grid.Row="1" Width="100" Height="30" ItemsSource="{Binding ServiceType.Services}" SelectedItem="{Binding Service}"></ComboBox>
+            <ComboBox VerticalAlignment="Top" Grid.Row="2" Width="100" Height="30" ItemsSource="{Binding FreeServices}" SelectedItem="{Binding Service}"></ComboBox>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
